@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/DFT/DFT_chatgpt.c ...
+>> Running 30 times (key=DFT, args='10000', threads='11')
+   run  1: 0.285898 s
+   run  2: 0.286965 s
+   run  3: 0.286341 s
+   run  4: 0.286520 s
+   run  5: 0.286043 s
+   run  6: 0.287100 s
+   run  7: 0.286153 s
+   run  8: 0.286766 s
+   run  9: 0.287193 s
+   run 10: 0.285458 s
+   run 11: 0.286597 s
+   run 12: 0.286790 s
+   run 13: 0.287225 s
+   run 14: 0.286642 s
+   run 15: 0.286203 s
+   run 16: 0.286243 s
+   run 17: 0.285554 s
+   run 18: 0.288276 s
+   run 19: 0.286564 s
+   run 20: 0.286252 s
+   run 21: 0.286808 s
+   run 22: 0.287005 s
+   run 23: 0.286325 s
+   run 24: 0.286067 s
+   run 25: 0.286528 s
+   run 26: 0.287050 s
+   run 27: 0.286901 s
+   run 28: 0.285888 s
+   run 29: 0.286878 s
+   run 30: 0.286439 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/DFT/DFT_chatgpt.c
+Threads:    11
+Runs:       30
+Average:    0.286556 s
+Std dev:    0.000557 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.95
+  Cache miss rate:  1.57%
+  Branch miss rate: 0.2814%
+---------------------------------------------

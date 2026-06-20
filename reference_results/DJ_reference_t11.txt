@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/reference/DJ_openmp_reference.c ...
+>> Running 30 times (key=DJ, args='11 4096 programs/DJ/graph_4096.txt', threads='11')
+   run  1: 0.566842 s
+   run  2: 0.570289 s
+   run  3: 0.575100 s
+   run  4: 0.570171 s
+   run  5: 0.566804 s
+   run  6: 0.569396 s
+   run  7: 0.569957 s
+   run  8: 0.569621 s
+   run  9: 0.572806 s
+   run 10: 0.569149 s
+   run 11: 0.569476 s
+   run 12: 0.567734 s
+   run 13: 0.573068 s
+   run 14: 0.569915 s
+   run 15: 0.567856 s
+   run 16: 0.570524 s
+   run 17: 0.572049 s
+   run 18: 0.569980 s
+   run 19: 0.568809 s
+   run 20: 0.569685 s
+   run 21: 0.576124 s
+   run 22: 0.574411 s
+   run 23: 0.576403 s
+   run 24: 0.571327 s
+   run 25: 0.575082 s
+   run 26: 0.572551 s
+   run 27: 0.572630 s
+   run 28: 0.568665 s
+   run 29: 0.569597 s
+   run 30: 0.572112 s
+---------------------------------------------
+Program:    DJ
+Source:     /home/dimitri/university/tcc/tcc_setup/reference/DJ_openmp_reference.c
+Threads:    11
+Runs:       30
+Average:    0.570938 s
+Std dev:    0.002581 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              4.02
+  Cache miss rate:  2.51%
+  Branch miss rate: 0.2726%
+---------------------------------------------

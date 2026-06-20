@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/programs/MM/sequential.c ...
+>> Running 30 times (key=MM, args='2048', threads='default')
+   run  1: 1.933581 s
+   run  2: 1.928462 s
+   run  3: 1.940002 s
+   run  4: 1.940066 s
+   run  5: 1.939307 s
+   run  6: 1.940403 s
+   run  7: 1.936023 s
+   run  8: 1.947721 s
+   run  9: 1.939125 s
+   run 10: 1.933558 s
+   run 11: 1.936415 s
+   run 12: 1.934770 s
+   run 13: 1.931810 s
+   run 14: 1.936351 s
+   run 15: 1.935219 s
+   run 16: 1.934623 s
+   run 17: 1.932844 s
+   run 18: 1.937616 s
+   run 19: 1.934486 s
+   run 20: 1.939360 s
+   run 21: 1.935158 s
+   run 22: 1.929331 s
+   run 23: 1.938287 s
+   run 24: 1.946855 s
+   run 25: 1.931216 s
+   run 26: 1.949359 s
+   run 27: 1.935453 s
+   run 28: 1.932965 s
+   run 29: 1.948017 s
+   run 30: 1.929768 s
+---------------------------------------------
+Program:    MM
+Source:     /home/dimitri/university/tcc/tcc_setup/programs/MM/sequential.c
+Threads:    sequential/default
+Runs:       30
+Average:    1.936938 s
+Std dev:    0.005362 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              5.58
+  Cache miss rate:  1.40%
+  Branch miss rate: 0.1951%
+---------------------------------------------

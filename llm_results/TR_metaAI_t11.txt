@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/TR/TR_metaAI.c ...
+>> Running 30 times (key=TR, args='1280', threads='11')
+   run  1: 0.850974 s
+   run  2: 0.847435 s
+   run  3: 0.848274 s
+   run  4: 0.853296 s
+   run  5: 0.849538 s
+   run  6: 0.848822 s
+   run  7: 0.848945 s
+   run  8: 0.947349 s
+   run  9: 0.846919 s
+   run 10: 0.851452 s
+   run 11: 0.848256 s
+   run 12: 0.872818 s
+   run 13: 0.847730 s
+   run 14: 0.888649 s
+   run 15: 0.850220 s
+   run 16: 0.850211 s
+   run 17: 0.848376 s
+   run 18: 0.848210 s
+   run 19: 0.848159 s
+   run 20: 0.847281 s
+   run 21: 0.847440 s
+   run 22: 0.847775 s
+   run 23: 0.847140 s
+   run 24: 0.847927 s
+   run 25: 0.847486 s
+   run 26: 0.849048 s
+   run 27: 0.847286 s
+   run 28: 0.846975 s
+   run 29: 0.847228 s
+   run 30: 0.846743 s
+---------------------------------------------
+Program:    TR
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/TR/TR_metaAI.c
+Threads:    11
+Runs:       30
+Average:    0.853932 s
+Std dev:    0.019282 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.22
+  Cache miss rate:  30.59%
+  Branch miss rate: 0.0211%
+---------------------------------------------

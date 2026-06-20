@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/programs/NI/sequential.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='default')
+   run  1: 1.979991 s
+   run  2: 1.979381 s
+   run  3: 1.959788 s
+   run  4: 1.978602 s
+   run  5: 1.978676 s
+   run  6: 1.977376 s
+   run  7: 1.977459 s
+   run  8: 1.978603 s
+   run  9: 1.978493 s
+   run 10: 1.980201 s
+   run 11: 1.962539 s
+   run 12: 1.978483 s
+   run 13: 1.977557 s
+   run 14: 1.977427 s
+   run 15: 1.979005 s
+   run 16: 1.982020 s
+   run 17: 1.979077 s
+   run 18: 1.979588 s
+   run 19: 1.978843 s
+   run 20: 1.972569 s
+   run 21: 1.979357 s
+   run 22: 1.979399 s
+   run 23: 1.976372 s
+   run 24: 1.975104 s
+   run 25: 1.977257 s
+   run 26: 1.981574 s
+   run 27: 1.978694 s
+   run 28: 1.979505 s
+   run 29: 1.978708 s
+   run 30: 1.981835 s
+---------------------------------------------
+Program:    NI
+Source:     /home/dimitri/university/tcc/tcc_setup/programs/NI/sequential.c
+Threads:    sequential/default
+Runs:       30
+Average:    1.977449 s
+Std dev:    0.004734 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.97
+  Cache miss rate:  29.78%
+  Branch miss rate: 0.0004%
+---------------------------------------------

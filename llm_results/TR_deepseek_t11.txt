@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/TR/TR_deepseek.c ...
+>> Running 30 times (key=TR, args='1280', threads='11')
+   run  1: 0.054778 s
+   run  2: 0.054688 s
+   run  3: 0.054433 s
+   run  4: 0.054795 s
+   run  5: 0.054258 s
+   run  6: 0.054167 s
+   run  7: 0.054241 s
+   run  8: 0.054650 s
+   run  9: 0.055175 s
+   run 10: 0.055910 s
+   run 11: 0.056087 s
+   run 12: 0.054725 s
+   run 13: 0.054355 s
+   run 14: 0.054818 s
+   run 15: 0.054472 s
+   run 16: 0.054493 s
+   run 17: 0.054349 s
+   run 18: 0.054297 s
+   run 19: 0.054401 s
+   run 20: 0.054320 s
+   run 21: 0.054937 s
+   run 22: 0.054460 s
+   run 23: 0.054108 s
+   run 24: 0.054197 s
+   run 25: 0.054292 s
+   run 26: 0.054825 s
+   run 27: 0.054560 s
+   run 28: 0.054445 s
+   run 29: 0.053950 s
+   run 30: 0.054866 s
+---------------------------------------------
+Program:    TR
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/TR/TR_deepseek.c
+Threads:    11
+Runs:       30
+Average:    0.054602 s
+Std dev:    0.000463 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              0.14
+  Cache miss rate:  41.95%
+  Branch miss rate: 0.5475%
+---------------------------------------------

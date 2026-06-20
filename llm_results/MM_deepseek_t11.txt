@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_deepseek.c ...
+>> Running 30 times (key=MM, args='2048', threads='11')
+   run  1: 0.421385 s
+   run  2: 0.417255 s
+   run  3: 0.417573 s
+   run  4: 0.416287 s
+   run  5: 0.418475 s
+   run  6: 0.417317 s
+   run  7: 0.418049 s
+   run  8: 0.417615 s
+   run  9: 0.416508 s
+   run 10: 0.419837 s
+   run 11: 0.418473 s
+   run 12: 0.418148 s
+   run 13: 0.417359 s
+   run 14: 0.419541 s
+   run 15: 0.417208 s
+   run 16: 0.419408 s
+   run 17: 0.418564 s
+   run 18: 0.418016 s
+   run 19: 0.417916 s
+   run 20: 0.420022 s
+   run 21: 0.415178 s
+   run 22: 0.421265 s
+   run 23: 0.417039 s
+   run 24: 0.420245 s
+   run 25: 0.418069 s
+   run 26: 0.417409 s
+   run 27: 0.419076 s
+   run 28: 0.417941 s
+   run 29: 0.419464 s
+   run 30: 0.417456 s
+---------------------------------------------
+Program:    MM
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_deepseek.c
+Threads:    11
+Runs:       30
+Average:    0.418270 s
+Std dev:    0.001390 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.97
+  Cache miss rate:  2.00%
+  Branch miss rate: 0.1951%
+---------------------------------------------

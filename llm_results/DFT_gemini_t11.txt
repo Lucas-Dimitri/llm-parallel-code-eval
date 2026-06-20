@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/DFT/DFT_gemini.c ...
+>> Running 30 times (key=DFT, args='10000', threads='11')
+   run  1: 0.285545 s
+   run  2: 0.286725 s
+   run  3: 0.286300 s
+   run  4: 0.286338 s
+   run  5: 0.285956 s
+   run  6: 0.286123 s
+   run  7: 0.285689 s
+   run  8: 0.286230 s
+   run  9: 0.286785 s
+   run 10: 0.286381 s
+   run 11: 0.287735 s
+   run 12: 0.286969 s
+   run 13: 0.286135 s
+   run 14: 0.286399 s
+   run 15: 0.286477 s
+   run 16: 0.285642 s
+   run 17: 0.286251 s
+   run 18: 0.296307 s
+   run 19: 0.293091 s
+   run 20: 0.286020 s
+   run 21: 0.286519 s
+   run 22: 0.285683 s
+   run 23: 0.287215 s
+   run 24: 0.286898 s
+   run 25: 0.287389 s
+   run 26: 0.286367 s
+   run 27: 0.288104 s
+   run 28: 0.286680 s
+   run 29: 0.303808 s
+   run 30: 0.287018 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/DFT/DFT_gemini.c
+Threads:    11
+Runs:       30
+Average:    0.287626 s
+Std dev:    0.003703 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.95
+  Cache miss rate:  1.74%
+  Branch miss rate: 0.2818%
+---------------------------------------------

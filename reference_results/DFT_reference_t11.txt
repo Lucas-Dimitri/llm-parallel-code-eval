@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/reference/DFT_openmp_reference.c ...
+>> Running 30 times (key=DFT, args='11 10000', threads='11')
+   run  1: 0.282913 s
+   run  2: 0.283637 s
+   run  3: 0.283039 s
+   run  4: 0.283023 s
+   run  5: 0.283272 s
+   run  6: 0.305763 s
+   run  7: 0.283667 s
+   run  8: 0.283417 s
+   run  9: 0.282767 s
+   run 10: 0.283121 s
+   run 11: 0.283509 s
+   run 12: 0.283590 s
+   run 13: 0.284031 s
+   run 14: 0.284001 s
+   run 15: 0.282967 s
+   run 16: 0.283272 s
+   run 17: 0.283348 s
+   run 18: 0.283321 s
+   run 19: 0.283756 s
+   run 20: 0.282949 s
+   run 21: 0.287292 s
+   run 22: 0.283678 s
+   run 23: 0.283302 s
+   run 24: 0.283213 s
+   run 25: 0.284482 s
+   run 26: 0.286937 s
+   run 27: 0.283467 s
+   run 28: 0.283883 s
+   run 29: 0.283024 s
+   run 30: 0.284268 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/dimitri/university/tcc/tcc_setup/reference/DFT_openmp_reference.c
+Threads:    11
+Runs:       30
+Average:    0.284430 s
+Std dev:    0.004086 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.93
+  Cache miss rate:  1.46%
+  Branch miss rate: 0.2680%
+---------------------------------------------

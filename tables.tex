@@ -1,0 +1,65 @@
+% ─────────────────────────────────────────────────────────────────────────────
+% Result tables for TCC: Evaluating LLMs on Sequential-to-Parallel C Conversion
+% Requires: \usepackage{booktabs}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{table}[htbp]
+\centering
+\caption{Sequential baseline measurements (30 runs, \texttt{taskset} cores 1--11).
+  IPC = instructions per cycle; Cache Miss = L1/LLC miss rate from \texttt{perf stat}.}
+\label{tab:baseline}
+\begin{tabular}{llrrrrr}
+\toprule
+\textbf{Program} & \textbf{Complexity} & \textbf{Input ($N$)} & \textbf{Avg Time (s)} & \textbf{Std Dev (s)} & \textbf{IPC} & \textbf{Cache Miss} \\
+\midrule
+Dot Product & $O(N)$ & $10^{10}$ & 2.1686 & 0.0056 & 6.99 & 28.54\% \\
+Numerical Integration & $O(N)$ & $10^9$ & 1.9774 & 0.0047 & 1.97 & 29.78\% \\
+Matrix Multiplication & $O(N^3)$ & 2048 & 1.9369 & 0.0054 & 5.58 & 1.40\% \\
+Odd-Even Sort & $O(N^2)$ & $10^5$ & 3.2849 & 0.0071 & 3.63 & 1.51\% \\
+Discrete Fourier Transform & $O(N^2)$ & $10^4$ & 1.7494 & 0.0103 & 3.02 & 1.44\% \\
+Predator-Prey Ring & $O(N^3)$ & 1280 & 1.8975 & 0.0155 & 5.20 & 39.37\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Speedup $S = T_{\text{seq}} / T_{\text{par}}$ at 11 threads (30 runs each).
+  $^\dagger$MetaAI NI: \texttt{\#pragma omp ordered} serialises the accumulation loop, yielding a slowdown.
+  $^\ddagger$DeepSeek TR: wavefront restructuring reduces loop iterations from $O(N^3)$ to $O(N^2)$; speedup reflects an algorithmic improvement rather than parallelism alone and is excluded from the average.}
+\label{tab:speedup}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Program} & \textbf{Reference} & \textbf{ChatGPT} & \textbf{Gemini} & \textbf{Claude} & \textbf{MetaAI} & \textbf{DeepSeek} \\
+\midrule
+Dot Product & 4.59 & 5.37 & 5.42 & 5.43 & 5.39 & 5.35 \\
+Numerical Integration & 5.35 & 5.26 & 5.27 & 5.26 & 0.48$^\dagger$ & 5.34 \\
+Matrix Multiplication & 4.71 & 2.76 & 4.64 & 4.82 & 4.76 & 4.63 \\
+Odd-Even Sort & 4.76 & 4.43 & 4.44 & 4.33 & 4.43 & 4.43 \\
+Discrete Fourier Transform & 6.15 & 6.10 & 6.08 & 6.02 & 6.02 & 5.99 \\
+Predator-Prey Ring & 5.01 & 2.15 & 4.97 & 4.92 & 2.22 & 34.75$^\ddagger$ \\
+\midrule
+\textbf{Average} & \textbf{5.09} & \textbf{4.35} & \textbf{5.14} & \textbf{5.13} & \textbf{3.88} & \textbf{5.15} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Correctness verification: output of each parallel version compared against
+  the sequential oracle on the same input. \checkmark~= exact output match.
+  All 30 programs compiled without errors.}
+\label{tab:correctness}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Program} & \textbf{ChatGPT} & \textbf{Gemini} & \textbf{Claude} & \textbf{MetaAI} & \textbf{DeepSeek} \\
+\midrule
+Dot Product & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Numerical Integration & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Matrix Multiplication & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Odd-Even Sort & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Discrete Fourier Transform & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Predator-Prey Ring & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}

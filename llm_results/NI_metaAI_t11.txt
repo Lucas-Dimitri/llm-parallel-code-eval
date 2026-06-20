@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_metaAI.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='11')
+   run  1: 4.252506 s
+   run  2: 4.216128 s
+   run  3: 4.163514 s
+   run  4: 4.185137 s
+   run  5: 4.131072 s
+   run  6: 4.150793 s
+   run  7: 4.143372 s
+   run  8: 4.176206 s
+   run  9: 4.128312 s
+   run 10: 4.131462 s
+   run 11: 4.152283 s
+   run 12: 4.148787 s
+   run 13: 4.161127 s
+   run 14: 4.207719 s
+   run 15: 4.136127 s
+   run 16: 4.143729 s
+   run 17: 4.162278 s
+   run 18: 4.146975 s
+   run 19: 4.133510 s
+   run 20: 4.127966 s
+   run 21: 4.145873 s
+   run 22: 4.166420 s
+   run 23: 4.124798 s
+   run 24: 4.204804 s
+   run 25: 4.166320 s
+   run 26: 4.160328 s
+   run 27: 4.125059 s
+   run 28: 4.142985 s
+   run 29: 4.147227 s
+   run 30: 4.165483 s
+---------------------------------------------
+Program:    NI
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_metaAI.c
+Threads:    11
+Runs:       30
+Average:    4.158277 s
+Std dev:    0.029425 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.30
+  Cache miss rate:  25.45%
+  Branch miss rate: 0.0001%
+---------------------------------------------

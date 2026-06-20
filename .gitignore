@@ -1,0 +1,14 @@
+# Editor and OS clutter
+.DS_Store
+.vscode/
+*~
+
+# Build artifacts
+*.o
+*.obj
+*.out
+*.exe
+*.tmp
+
+# Local helper binaries
+programs/DJ/gen_graph

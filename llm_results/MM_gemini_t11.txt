@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_gemini.c ...
+>> Running 30 times (key=MM, args='2048', threads='11')
+   run  1: 0.415438 s
+   run  2: 0.419083 s
+   run  3: 0.414829 s
+   run  4: 0.415688 s
+   run  5: 0.438120 s
+   run  6: 0.415627 s
+   run  7: 0.416044 s
+   run  8: 0.416159 s
+   run  9: 0.416219 s
+   run 10: 0.415363 s
+   run 11: 0.416458 s
+   run 12: 0.417169 s
+   run 13: 0.417485 s
+   run 14: 0.416449 s
+   run 15: 0.417971 s
+   run 16: 0.415433 s
+   run 17: 0.416767 s
+   run 18: 0.416902 s
+   run 19: 0.415881 s
+   run 20: 0.418159 s
+   run 21: 0.417120 s
+   run 22: 0.418312 s
+   run 23: 0.415807 s
+   run 24: 0.415290 s
+   run 25: 0.414559 s
+   run 26: 0.415945 s
+   run 27: 0.417347 s
+   run 28: 0.416881 s
+   run 29: 0.417035 s
+   run 30: 0.415370 s
+---------------------------------------------
+Program:    MM
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_gemini.c
+Threads:    11
+Runs:       30
+Average:    0.417164 s
+Std dev:    0.004034 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.94
+  Cache miss rate:  2.41%
+  Branch miss rate: 0.1945%
+---------------------------------------------

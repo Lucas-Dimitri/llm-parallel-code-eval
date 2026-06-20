@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_metaAI.c ...
+>> Running 30 times (key=MM, args='2048', threads='11')
+   run  1: 0.429155 s
+   run  2: 0.404531 s
+   run  3: 0.401741 s
+   run  4: 0.402272 s
+   run  5: 0.402101 s
+   run  6: 0.403108 s
+   run  7: 0.418479 s
+   run  8: 0.402629 s
+   run  9: 0.401895 s
+   run 10: 0.403295 s
+   run 11: 0.401499 s
+   run 12: 0.420367 s
+   run 13: 0.401467 s
+   run 14: 0.402244 s
+   run 15: 0.401633 s
+   run 16: 0.400977 s
+   run 17: 0.439608 s
+   run 18: 0.402405 s
+   run 19: 0.401606 s
+   run 20: 0.402004 s
+   run 21: 0.401844 s
+   run 22: 0.401105 s
+   run 23: 0.402206 s
+   run 24: 0.433787 s
+   run 25: 0.403066 s
+   run 26: 0.403257 s
+   run 27: 0.402372 s
+   run 28: 0.403305 s
+   run 29: 0.404036 s
+   run 30: 0.400902 s
+---------------------------------------------
+Program:    MM
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_metaAI.c
+Threads:    11
+Runs:       30
+Average:    0.406630 s
+Std dev:    0.010248 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.96
+  Cache miss rate:  2.25%
+  Branch miss rate: 0.1946%
+---------------------------------------------

@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_gemini.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='11')
+   run  1: 0.373620 s
+   run  2: 0.374862 s
+   run  3: 0.373976 s
+   run  4: 0.374030 s
+   run  5: 0.373873 s
+   run  6: 0.373733 s
+   run  7: 0.373806 s
+   run  8: 0.373721 s
+   run  9: 0.373692 s
+   run 10: 0.373841 s
+   run 11: 0.374054 s
+   run 12: 0.373601 s
+   run 13: 0.388056 s
+   run 14: 0.375034 s
+   run 15: 0.395014 s
+   run 16: 0.374033 s
+   run 17: 0.373894 s
+   run 18: 0.373756 s
+   run 19: 0.373865 s
+   run 20: 0.373633 s
+   run 21: 0.373772 s
+   run 22: 0.373991 s
+   run 23: 0.373931 s
+   run 24: 0.374582 s
+   run 25: 0.373758 s
+   run 26: 0.373792 s
+   run 27: 0.373843 s
+   run 28: 0.373890 s
+   run 29: 0.373858 s
+   run 30: 0.373810 s
+---------------------------------------------
+Program:    NI
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_gemini.c
+Threads:    11
+Runs:       30
+Average:    0.375111 s
+Std dev:    0.004492 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.35
+  Cache miss rate:  35.77%
+  Branch miss rate: 0.0003%
+---------------------------------------------

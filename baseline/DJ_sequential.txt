@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/programs/DJ/sequential.c ...
+>> Running 30 times (key=DJ, args='4096 programs/DJ/graph_4096.txt', threads='default')
+   run  1: 0.566637 s
+   run  2: 0.566475 s
+   run  3: 0.565369 s
+   run  4: 0.565173 s
+   run  5: 0.565522 s
+   run  6: 0.565003 s
+   run  7: 0.564051 s
+   run  8: 0.568548 s
+   run  9: 0.567688 s
+   run 10: 0.564105 s
+   run 11: 0.571505 s
+   run 12: 0.568432 s
+   run 13: 0.562560 s
+   run 14: 0.563440 s
+   run 15: 0.562631 s
+   run 16: 0.563041 s
+   run 17: 0.563547 s
+   run 18: 0.566032 s
+   run 19: 0.564418 s
+   run 20: 0.563123 s
+   run 21: 0.565873 s
+   run 22: 0.563918 s
+   run 23: 0.564755 s
+   run 24: 0.564212 s
+   run 25: 0.564480 s
+   run 26: 0.562273 s
+   run 27: 0.564842 s
+   run 28: 0.565699 s
+   run 29: 0.567986 s
+   run 30: 0.565180 s
+---------------------------------------------
+Program:    DJ
+Source:     /home/dimitri/university/tcc/tcc_setup/programs/DJ/sequential.c
+Threads:    sequential/default
+Runs:       30
+Average:    0.565217 s
+Std dev:    0.002034 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              4.10
+  Cache miss rate:  2.75%
+  Branch miss rate: 0.2729%
+---------------------------------------------

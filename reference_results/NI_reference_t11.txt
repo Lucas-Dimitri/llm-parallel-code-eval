@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/reference/NI_openmp_reference.c ...
+>> Running 30 times (key=NI, args='11 1000000000', threads='11')
+   run  1: 0.368672 s
+   run  2: 0.368804 s
+   run  3: 0.368938 s
+   run  4: 0.368951 s
+   run  5: 0.368938 s
+   run  6: 0.369045 s
+   run  7: 0.368986 s
+   run  8: 0.369031 s
+   run  9: 0.368999 s
+   run 10: 0.368921 s
+   run 11: 0.369006 s
+   run 12: 0.369041 s
+   run 13: 0.369179 s
+   run 14: 0.369018 s
+   run 15: 0.369237 s
+   run 16: 0.369032 s
+   run 17: 0.369132 s
+   run 18: 0.369125 s
+   run 19: 0.369140 s
+   run 20: 0.369219 s
+   run 21: 0.369207 s
+   run 22: 0.369296 s
+   run 23: 0.390783 s
+   run 24: 0.369468 s
+   run 25: 0.369301 s
+   run 26: 0.369345 s
+   run 27: 0.369356 s
+   run 28: 0.369587 s
+   run 29: 0.369363 s
+   run 30: 0.369454 s
+---------------------------------------------
+Program:    NI
+Source:     /home/dimitri/university/tcc/tcc_setup/reference/NI_openmp_reference.c
+Threads:    11
+Runs:       30
+Average:    0.369852 s
+Std dev:    0.003892 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.19
+  Cache miss rate:  32.55%
+  Branch miss rate: 0.0009%
+---------------------------------------------
