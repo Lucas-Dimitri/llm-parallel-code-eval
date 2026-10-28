@@ -27,9 +27,10 @@
 set -u
 
 # ---- Configuration ---------------------------------------------------
-# ---- Configuration ---------------------------------------------------
 RUNS=30                          # number of timed executions
-CORES="1-11"                    # taskset core pinning (leave core 0 free for OS interrupts)
+# Core pinning (taskset) is derived from the thread count further below:
+# T threads -> cores 0..T-1; sequential -> core 0. Set CORES in the
+# environment to override, e.g. CORES="0-23" ./measure.sh ...
 CFLAGS="-O2 -fopenmp -DELAPSEDTIME -lm" # -DELAPSEDTIME enables internal timer
                                 # (harmless if the program lacks the block;
                                 #  we also fall back to external timing)
@@ -64,6 +65,14 @@ if [[ -z "${INPUT_ARGS[$KEY]+x}" ]]; then
 fi
 
 ARGS="${INPUT_ARGS[$KEY]}"
+
+if [[ -z "${CORES:-}" ]]; then
+  if [[ -n "$THREADS" ]]; then
+    CORES="0-$((THREADS - 1))"
+  else
+    CORES="0"
+  fi
+fi
 BIN="$(mktemp /tmp/tcc_bin.XXXXXX)"
 
 # ---- Compile ---------------------------------------------------------
@@ -103,7 +112,7 @@ for ((r=1; r<=RUNS; r++)); do
     start=$(date +%s.%N)
     taskset -c "$CORES" "$BIN" $RUN_ARGS >/dev/null 2>&1
     end=$(date +%s.%N)
-    t=$(echo "$end - $start" | bc -l)
+    t=$(awk -v s="$start" -v e="$end" 'BEGIN {printf "%.6f", e - s}')
   fi
 
   times+=("$t")
@@ -118,6 +127,7 @@ echo "---------------------------------------------"
 echo "Program:    $KEY"
 echo "Source:     $SRC"
 echo "Threads:    ${THREADS:-sequential/default}"
+echo "Cores:      $CORES"
 echo "Runs:       $RUNS"
 echo "Average:    $avg s"
 echo "Std dev:    $std s"

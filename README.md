@@ -23,7 +23,8 @@ tcc_setup/
 ├── measure.sh             # Common compilation and measurement script
 ├── baseline.sh            # Convenience wrapper for sequential runs
 ├── run_reference.sh       # Convenience wrapper for reference runs
-└── run_llm.sh             # Convenience wrapper for LLM runs
+├── run_llm.sh             # Convenience wrapper for LLM runs
+└── run_sweep.sh           # Full experiment over 2,4,...,24 threads
 ```
 
 ## How to use
@@ -54,15 +55,23 @@ If you want to run a single benchmark manually:
 ./run_llm.sh 11
 ```
 
+### Full thread sweep
+
+```bash
+./run_sweep.sh            # baseline + 2,4,6,...,24 threads
+./run_sweep.sh 4 8 16     # custom thread counts
+```
+
 The scripts save their output in `baseline/`, `reference_results/`, and
 `llm_results/` respectively.
 
 ## Notes
 
-- Update `CORES` in `measure.sh` to match the machine used for the experiment.
+- Core pinning follows the thread count: T threads run on cores `0..T-1`,
+  sequential runs on core 0. Override with `CORES=... ./measure.sh ...`.
 - The current measurement script runs each program 30 times and then reports
   average and standard deviation.
 - `measure.sh` exports `OMP_NUM_THREADS` for parallel versions; if a program
   expects the thread count as an argument, use the fourth parameter described
   in the script header.
-- The scripts rely on `gcc`, `taskset`, `awk`, `bc`, and optionally `perf`.
+- The scripts rely on `gcc`, `taskset`, `awk`, and optionally `perf`.
