@@ -9,7 +9,7 @@ OUT_DIR="$SCRIPT_DIR/reference_results"
 THREADS="${1:-11}"
 mkdir -p "$OUT_DIR"
 
-KEYS=(DP NI MM OE DFT TR)
+KEYS=(${KEYS:-DP NI MM OE DFT TR})   # override, e.g. KEYS="DFT" ./run_sweep.sh
 
 for KEY in "${KEYS[@]}"; do
   SRC="$SCRIPT_DIR/reference/${KEY}_openmp_reference.c"

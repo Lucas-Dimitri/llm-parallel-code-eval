@@ -31,9 +31,10 @@ RUNS=30                          # number of timed executions
 # Core pinning (taskset) is derived from the thread count further below:
 # T threads -> cores 0..T-1; sequential -> core 0. Set CORES in the
 # environment to override, e.g. CORES="0-23" ./measure.sh ...
-CFLAGS="-O2 -fopenmp -DELAPSEDTIME -lm" # -DELAPSEDTIME enables internal timer
+CFLAGS="-O2 -fopenmp -DELAPSEDTIME"  # -DELAPSEDTIME enables internal timer
                                 # (harmless if the program lacks the block;
                                 #  we also fall back to external timing)
+LDLIBS="-lm"                     # must come after the source file (Ubuntu links with --as-needed)
 
 # Input sizes per program (based on PAMPAR Table 2; reduced where a full
 # size would be too slow for repeated runs -- adjust to taste).
@@ -77,7 +78,7 @@ BIN="$(mktemp /tmp/tcc_bin.XXXXXX)"
 
 # ---- Compile ---------------------------------------------------------
 echo ">> Compiling $SRC ..."
-if ! gcc $CFLAGS "$SRC" -o "$BIN" 2> /tmp/tcc_cc_err; then
+if ! gcc $CFLAGS "$SRC" -o "$BIN" $LDLIBS 2> /tmp/tcc_cc_err; then
   echo "COMPILE_FAILED"
   echo "--- compiler output ---"
   cat /tmp/tcc_cc_err

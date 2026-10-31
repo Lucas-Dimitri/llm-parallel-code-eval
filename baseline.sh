@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 OUT_DIR="$SCRIPT_DIR/baseline"
 mkdir -p "$OUT_DIR"
 
-KEYS=(DP NI MM OE DFT TR)
+KEYS=(${KEYS:-DP NI MM OE DFT TR})   # override, e.g. KEYS="DFT" ./run_sweep.sh
 
 for KEY in "${KEYS[@]}"; do
   SRC="$SCRIPT_DIR/programs/$KEY/${KEY}_sequential.c"
