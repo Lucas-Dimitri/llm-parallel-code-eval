@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/programs/TR/TR_sequential.c ...
+>> Running 30 times (key=TR, args='1280', threads='default')
+   run  1: 4.632243 s
+   run  2: 4.621765 s
+   run  3: 4.623599 s
+   run  4: 4.621939 s
+   run  5: 4.625763 s
+   run  6: 4.619040 s
+   run  7: 4.627498 s
+   run  8: 4.621672 s
+   run  9: 4.628050 s
+   run 10: 4.624577 s
+   run 11: 4.621341 s
+   run 12: 4.626815 s
+   run 13: 4.623982 s
+   run 14: 4.621940 s
+   run 15: 4.620641 s
+   run 16: 4.623743 s
+   run 17: 4.620301 s
+   run 18: 4.624931 s
+   run 19: 4.624663 s
+   run 20: 4.621209 s
+   run 21: 4.623318 s
+   run 22: 4.620636 s
+   run 23: 4.623522 s
+   run 24: 4.623656 s
+   run 25: 4.621420 s
+   run 26: 4.619913 s
+   run 27: 4.621168 s
+   run 28: 4.620704 s
+   run 29: 4.623188 s
+   run 30: 4.622029 s
+---------------------------------------------
+Program:    TR
+Source:     /home/arquitetura/llm-parallel-code-eval/programs/TR/TR_sequential.c
+Threads:    sequential/default
+Cores:      0
+Runs:       30
+Average:    4.623176 s
+Std dev:    0.002777 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

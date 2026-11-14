@@ -1,0 +1,48 @@
+>> Compiling LLM_programs/OE/OE_deepseek.c ...
+>> Running 30 times (key=OE, args='100000', threads='18')
+   run  1: 0.891749 s
+   run  2: 0.861381 s
+   run  3: 0.863583 s
+   run  4: 0.858422 s
+   run  5: 0.871427 s
+   run  6: 0.857625 s
+   run  7: 0.854585 s
+   run  8: 0.860139 s
+   run  9: 0.868250 s
+   run 10: 0.856251 s
+   run 11: 0.862659 s
+   run 12: 0.864309 s
+   run 13: 0.860181 s
+   run 14: 0.871778 s
+   run 15: 0.860521 s
+   run 16: 0.866859 s
+   run 17: 0.861849 s
+   run 18: 0.852174 s
+   run 19: 0.864588 s
+   run 20: 0.858491 s
+   run 21: 0.854027 s
+   run 22: 0.867460 s
+   run 23: 0.856978 s
+   run 24: 0.853655 s
+   run 25: 0.868977 s
+   run 26: 0.857059 s
+   run 27: 0.857196 s
+   run 28: 0.856098 s
+   run 29: 0.865140 s
+   run 30: 0.853782 s
+---------------------------------------------
+Program:    OE
+Source:     LLM_programs/OE/OE_deepseek.c
+Threads:    18
+Cores:      0-17
+Runs:       30
+Average:    0.861906 s
+Std dev:    0.007706 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

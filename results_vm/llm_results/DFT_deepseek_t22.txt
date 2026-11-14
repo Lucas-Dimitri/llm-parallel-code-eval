@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DFT/DFT_deepseek.c ...
+>> Running 30 times (key=DFT, args='10000', threads='22')
+   run  1: 0.240721 s
+   run  2: 0.238847 s
+   run  3: 0.241349 s
+   run  4: 0.238932 s
+   run  5: 0.239809 s
+   run  6: 0.239473 s
+   run  7: 0.239273 s
+   run  8: 0.242646 s
+   run  9: 0.240106 s
+   run 10: 0.239178 s
+   run 11: 0.241441 s
+   run 12: 0.243741 s
+   run 13: 0.239862 s
+   run 14: 0.240256 s
+   run 15: 0.239040 s
+   run 16: 0.239690 s
+   run 17: 0.239558 s
+   run 18: 0.239598 s
+   run 19: 0.239681 s
+   run 20: 0.239571 s
+   run 21: 0.239866 s
+   run 22: 0.240305 s
+   run 23: 0.238872 s
+   run 24: 0.239259 s
+   run 25: 0.239206 s
+   run 26: 0.239847 s
+   run 27: 0.239663 s
+   run 28: 0.238841 s
+   run 29: 0.238409 s
+   run 30: 0.244557 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DFT/DFT_deepseek.c
+Threads:    22
+Cores:      0-21
+Runs:       30
+Average:    0.240053 s
+Std dev:    0.001395 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

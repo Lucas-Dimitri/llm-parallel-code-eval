@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_gemini.c ...
+>> Running 30 times (key=OE, args='100000', threads='4')
+   run  1: 0.915982 s
+   run  2: 0.908886 s
+   run  3: 0.921049 s
+   run  4: 0.906797 s
+   run  5: 0.916365 s
+   run  6: 0.919185 s
+   run  7: 0.915841 s
+   run  8: 0.908712 s
+   run  9: 0.906211 s
+   run 10: 0.903379 s
+   run 11: 0.912954 s
+   run 12: 0.909830 s
+   run 13: 0.903693 s
+   run 14: 0.906977 s
+   run 15: 0.915681 s
+   run 16: 0.907790 s
+   run 17: 0.906599 s
+   run 18: 0.916709 s
+   run 19: 0.923646 s
+   run 20: 0.912971 s
+   run 21: 0.904756 s
+   run 22: 0.919264 s
+   run 23: 0.915259 s
+   run 24: 0.922634 s
+   run 25: 0.908849 s
+   run 26: 0.905602 s
+   run 27: 0.921343 s
+   run 28: 0.909260 s
+   run 29: 0.924278 s
+   run 30: 0.914819 s
+---------------------------------------------
+Program:    OE
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_gemini.c
+Threads:    4
+Cores:      0-3
+Runs:       30
+Average:    0.912844 s
+Std dev:    0.006244 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

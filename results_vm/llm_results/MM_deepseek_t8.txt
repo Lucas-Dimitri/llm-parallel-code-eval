@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_deepseek.c ...
+>> Running 30 times (key=MM, args='2048', threads='8')
+   run  1: 0.707473 s
+   run  2: 0.643450 s
+   run  3: 0.650965 s
+   run  4: 0.658132 s
+   run  5: 0.771369 s
+   run  6: 0.727685 s
+   run  7: 0.674594 s
+   run  8: 0.626817 s
+   run  9: 0.705772 s
+   run 10: 0.653184 s
+   run 11: 0.795808 s
+   run 12: 0.751801 s
+   run 13: 0.620480 s
+   run 14: 0.660157 s
+   run 15: 0.644991 s
+   run 16: 0.714808 s
+   run 17: 0.685720 s
+   run 18: 0.628090 s
+   run 19: 0.649592 s
+   run 20: 0.712812 s
+   run 21: 0.629359 s
+   run 22: 0.643787 s
+   run 23: 0.713104 s
+   run 24: 0.709275 s
+   run 25: 0.675883 s
+   run 26: 0.641858 s
+   run 27: 0.685739 s
+   run 28: 0.624502 s
+   run 29: 0.627438 s
+   run 30: 0.639650 s
+---------------------------------------------
+Program:    MM
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_deepseek.c
+Threads:    8
+Cores:      0-7
+Runs:       30
+Average:    0.675810 s
+Std dev:    0.045542 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

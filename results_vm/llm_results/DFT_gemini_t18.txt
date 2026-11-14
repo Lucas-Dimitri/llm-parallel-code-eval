@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DFT/DFT_gemini.c ...
+>> Running 30 times (key=DFT, args='10000', threads='18')
+   run  1: 0.282618 s
+   run  2: 0.280103 s
+   run  3: 0.284484 s
+   run  4: 0.281651 s
+   run  5: 0.280455 s
+   run  6: 0.279648 s
+   run  7: 0.283124 s
+   run  8: 0.279242 s
+   run  9: 0.280556 s
+   run 10: 0.286859 s
+   run 11: 0.280571 s
+   run 12: 0.284152 s
+   run 13: 0.280173 s
+   run 14: 0.280721 s
+   run 15: 0.282327 s
+   run 16: 0.282246 s
+   run 17: 0.283259 s
+   run 18: 0.280358 s
+   run 19: 0.281904 s
+   run 20: 0.284936 s
+   run 21: 0.282602 s
+   run 22: 0.282230 s
+   run 23: 0.282506 s
+   run 24: 0.280415 s
+   run 25: 0.282428 s
+   run 26: 0.280475 s
+   run 27: 0.280253 s
+   run 28: 0.283066 s
+   run 29: 0.282619 s
+   run 30: 0.282070 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DFT/DFT_gemini.c
+Threads:    18
+Cores:      0-17
+Runs:       30
+Average:    0.281935 s
+Std dev:    0.001709 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

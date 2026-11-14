@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_gemini.c ...
+>> Running 30 times (key=TR, args='1280', threads='2')
+   run  1: 1.878449 s
+   run  2: 1.876115 s
+   run  3: 1.877534 s
+   run  4: 1.873409 s
+   run  5: 1.876883 s
+   run  6: 1.871750 s
+   run  7: 1.874472 s
+   run  8: 1.879208 s
+   run  9: 1.878127 s
+   run 10: 1.874083 s
+   run 11: 1.881630 s
+   run 12: 1.866700 s
+   run 13: 1.877106 s
+   run 14: 1.871718 s
+   run 15: 1.876334 s
+   run 16: 1.871288 s
+   run 17: 1.875289 s
+   run 18: 1.871583 s
+   run 19: 1.882303 s
+   run 20: 1.868124 s
+   run 21: 1.874636 s
+   run 22: 1.873961 s
+   run 23: 1.869814 s
+   run 24: 1.873052 s
+   run 25: 1.870458 s
+   run 26: 1.880093 s
+   run 27: 1.871394 s
+   run 28: 1.880751 s
+   run 29: 1.869404 s
+   run 30: 1.876064 s
+---------------------------------------------
+Program:    TR
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_gemini.c
+Threads:    2
+Cores:      0-1
+Runs:       30
+Average:    1.874724 s
+Std dev:    0.003981 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

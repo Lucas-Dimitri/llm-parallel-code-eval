@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_chatgpt.c ...
+>> Running 30 times (key=MM, args='2048', threads='11')
+   run  1: 0.693031 s
+   run  2: 0.689672 s
+   run  3: 0.694439 s
+   run  4: 0.693523 s
+   run  5: 0.694779 s
+   run  6: 0.693359 s
+   run  7: 0.696817 s
+   run  8: 0.862974 s
+   run  9: 0.694916 s
+   run 10: 0.693115 s
+   run 11: 0.697060 s
+   run 12: 0.694254 s
+   run 13: 0.692314 s
+   run 14: 0.696155 s
+   run 15: 0.691248 s
+   run 16: 0.696046 s
+   run 17: 0.694729 s
+   run 18: 0.693732 s
+   run 19: 0.720242 s
+   run 20: 0.706014 s
+   run 21: 0.710437 s
+   run 22: 0.699294 s
+   run 23: 0.694519 s
+   run 24: 0.696373 s
+   run 25: 0.697233 s
+   run 26: 0.696177 s
+   run 27: 0.696635 s
+   run 28: 0.697315 s
+   run 29: 0.694958 s
+   run 30: 0.695697 s
+---------------------------------------------
+Program:    MM
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_chatgpt.c
+Threads:    11
+Runs:       30
+Average:    0.702235 s
+Std dev:    0.030415 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.61
+  Cache miss rate:  2.80%
+  Branch miss rate: 0.0491%
+---------------------------------------------

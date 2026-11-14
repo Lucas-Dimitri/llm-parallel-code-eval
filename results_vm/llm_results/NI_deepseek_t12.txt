@@ -1,0 +1,48 @@
+>> Compiling LLM_programs/NI/NI_deepseek.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='12')
+   run  1: 0.258706 s
+   run  2: 0.257080 s
+   run  3: 0.255057 s
+   run  4: 0.258282 s
+   run  5: 0.256682 s
+   run  6: 0.255697 s
+   run  7: 0.254796 s
+   run  8: 0.256783 s
+   run  9: 0.257052 s
+   run 10: 0.257391 s
+   run 11: 0.257567 s
+   run 12: 0.255110 s
+   run 13: 0.257070 s
+   run 14: 0.256651 s
+   run 15: 0.254959 s
+   run 16: 0.256026 s
+   run 17: 0.256602 s
+   run 18: 0.257387 s
+   run 19: 0.257267 s
+   run 20: 0.257137 s
+   run 21: 0.256157 s
+   run 22: 0.254774 s
+   run 23: 0.256462 s
+   run 24: 0.258193 s
+   run 25: 0.256288 s
+   run 26: 0.257054 s
+   run 27: 0.257625 s
+   run 28: 0.256616 s
+   run 29: 0.257101 s
+   run 30: 0.254931 s
+---------------------------------------------
+Program:    NI
+Source:     LLM_programs/NI/NI_deepseek.c
+Threads:    12
+Cores:      0-11
+Runs:       30
+Average:    0.256617 s
+Std dev:    0.001049 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

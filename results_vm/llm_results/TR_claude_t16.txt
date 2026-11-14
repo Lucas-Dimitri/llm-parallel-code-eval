@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_claude.c ...
+>> Running 30 times (key=TR, args='1280', threads='16')
+   run  1: 0.465398 s
+   run  2: 0.463657 s
+   run  3: 0.463858 s
+   run  4: 0.463670 s
+   run  5: 0.463154 s
+   run  6: 0.463778 s
+   run  7: 0.463365 s
+   run  8: 0.463777 s
+   run  9: 0.463901 s
+   run 10: 0.464328 s
+   run 11: 0.462941 s
+   run 12: 0.463453 s
+   run 13: 0.463772 s
+   run 14: 0.463302 s
+   run 15: 0.463426 s
+   run 16: 0.464079 s
+   run 17: 0.462196 s
+   run 18: 0.463064 s
+   run 19: 0.463112 s
+   run 20: 0.466317 s
+   run 21: 0.463441 s
+   run 22: 0.463951 s
+   run 23: 0.464055 s
+   run 24: 0.463692 s
+   run 25: 0.463804 s
+   run 26: 0.463598 s
+   run 27: 0.463412 s
+   run 28: 0.463639 s
+   run 29: 0.463288 s
+   run 30: 0.462923 s
+---------------------------------------------
+Program:    TR
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_claude.c
+Threads:    16
+Cores:      0-15
+Runs:       30
+Average:    0.463678 s
+Std dev:    0.000725 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

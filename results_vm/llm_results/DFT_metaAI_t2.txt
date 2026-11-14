@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DFT/DFT_metaAI.c ...
+>> Running 30 times (key=DFT, args='10000', threads='2')
+   run  1: 1.276393 s
+   run  2: 1.274300 s
+   run  3: 1.271920 s
+   run  4: 1.271148 s
+   run  5: 1.276308 s
+   run  6: 1.283175 s
+   run  7: 1.274880 s
+   run  8: 1.275468 s
+   run  9: 1.274616 s
+   run 10: 1.272027 s
+   run 11: 1.272238 s
+   run 12: 1.272497 s
+   run 13: 1.273236 s
+   run 14: 1.270218 s
+   run 15: 1.276803 s
+   run 16: 1.275178 s
+   run 17: 1.272739 s
+   run 18: 1.279034 s
+   run 19: 1.286348 s
+   run 20: 1.276735 s
+   run 21: 1.278680 s
+   run 22: 1.274432 s
+   run 23: 1.275307 s
+   run 24: 1.271523 s
+   run 25: 1.274182 s
+   run 26: 1.274162 s
+   run 27: 1.281396 s
+   run 28: 1.279118 s
+   run 29: 1.277526 s
+   run 30: 1.276498 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DFT/DFT_metaAI.c
+Threads:    2
+Cores:      0-1
+Runs:       30
+Average:    1.275603 s
+Std dev:    0.003577 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

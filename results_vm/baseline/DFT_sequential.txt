@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/programs/DFT/DFT_sequential.c ...
+>> Running 30 times (key=DFT, args='10000', threads='default')
+   run  1: 2.858738 s
+   run  2: 2.562876 s
+   run  3: 2.556173 s
+   run  4: 2.557907 s
+   run  5: 2.566441 s
+   run  6: 2.555037 s
+   run  7: 2.558060 s
+   run  8: 2.564515 s
+   run  9: 2.559924 s
+   run 10: 2.560190 s
+   run 11: 2.560896 s
+   run 12: 2.557285 s
+   run 13: 2.566298 s
+   run 14: 2.558922 s
+   run 15: 2.578577 s
+   run 16: 2.559579 s
+   run 17: 2.563607 s
+   run 18: 2.741235 s
+   run 19: 2.560767 s
+   run 20: 2.556571 s
+   run 21: 2.565068 s
+   run 22: 2.559920 s
+   run 23: 2.761769 s
+   run 24: 2.564237 s
+   run 25: 2.565197 s
+   run 26: 2.576985 s
+   run 27: 2.571648 s
+   run 28: 2.564811 s
+   run 29: 2.559584 s
+   run 30: 2.560858 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/arquitetura/llm-parallel-code-eval/programs/DFT/DFT_sequential.c
+Threads:    sequential/default
+Cores:      0
+Runs:       30
+Average:    2.585122 s
+Std dev:    0.069504 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

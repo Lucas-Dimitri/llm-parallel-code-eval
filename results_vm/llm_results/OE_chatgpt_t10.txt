@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_chatgpt.c ...
+>> Running 30 times (key=OE, args='100000', threads='10')
+   run  1: 0.589333 s
+   run  2: 0.579350 s
+   run  3: 0.592702 s
+   run  4: 0.593866 s
+   run  5: 0.591572 s
+   run  6: 0.592789 s
+   run  7: 0.596166 s
+   run  8: 0.583652 s
+   run  9: 0.581557 s
+   run 10: 0.586240 s
+   run 11: 0.584372 s
+   run 12: 0.594108 s
+   run 13: 0.581892 s
+   run 14: 0.595259 s
+   run 15: 0.584696 s
+   run 16: 0.585106 s
+   run 17: 0.593083 s
+   run 18: 0.579443 s
+   run 19: 0.593018 s
+   run 20: 0.583595 s
+   run 21: 0.578520 s
+   run 22: 0.586355 s
+   run 23: 0.581819 s
+   run 24: 0.588962 s
+   run 25: 0.579920 s
+   run 26: 0.581252 s
+   run 27: 0.592088 s
+   run 28: 0.586258 s
+   run 29: 0.584624 s
+   run 30: 0.583312 s
+---------------------------------------------
+Program:    OE
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_chatgpt.c
+Threads:    10
+Cores:      0-9
+Runs:       30
+Average:    0.586830 s
+Std dev:    0.005345 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

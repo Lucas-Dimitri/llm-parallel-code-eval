@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/programs/DP/DP_sequential.c ...
+>> Running 30 times (key=DP, args='10000000000', threads='default')
+   run  1: 6.314051 s
+   run  2: 6.197565 s
+   run  3: 6.191516 s
+   run  4: 6.204504 s
+   run  5: 6.246276 s
+   run  6: 6.202633 s
+   run  7: 6.193192 s
+   run  8: 6.194687 s
+   run  9: 6.193665 s
+   run 10: 6.200887 s
+   run 11: 6.199884 s
+   run 12: 6.202201 s
+   run 13: 6.209584 s
+   run 14: 6.193335 s
+   run 15: 6.199976 s
+   run 16: 6.199067 s
+   run 17: 6.196453 s
+   run 18: 6.191944 s
+   run 19: 6.195965 s
+   run 20: 6.196698 s
+   run 21: 6.191909 s
+   run 22: 6.197675 s
+   run 23: 6.196580 s
+   run 24: 6.202191 s
+   run 25: 6.194958 s
+   run 26: 6.195073 s
+   run 27: 6.194127 s
+   run 28: 6.196004 s
+   run 29: 6.202383 s
+   run 30: 6.196905 s
+---------------------------------------------
+Program:    DP
+Source:     /home/arquitetura/llm-parallel-code-eval/programs/DP/DP_sequential.c
+Threads:    sequential/default
+Cores:      0
+Runs:       30
+Average:    6.203063 s
+Std dev:    0.022758 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

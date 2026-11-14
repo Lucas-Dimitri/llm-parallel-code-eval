@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_gemini.c ...
+>> Running 30 times (key=MM, args='2048', threads='22')
+   run  1: 0.498541 s
+   run  2: 0.520598 s
+   run  3: 0.513274 s
+   run  4: 0.514039 s
+   run  5: 0.497268 s
+   run  6: 0.501581 s
+   run  7: 0.505238 s
+   run  8: 0.488745 s
+   run  9: 0.488564 s
+   run 10: 0.482351 s
+   run 11: 0.483163 s
+   run 12: 0.485111 s
+   run 13: 0.487362 s
+   run 14: 0.494546 s
+   run 15: 0.485694 s
+   run 16: 0.506136 s
+   run 17: 0.485039 s
+   run 18: 0.486732 s
+   run 19: 0.488455 s
+   run 20: 0.485135 s
+   run 21: 0.486662 s
+   run 22: 0.484071 s
+   run 23: 0.485153 s
+   run 24: 0.482940 s
+   run 25: 0.485052 s
+   run 26: 0.489457 s
+   run 27: 0.484598 s
+   run 28: 0.485839 s
+   run 29: 0.484573 s
+   run 30: 0.481402 s
+---------------------------------------------
+Program:    MM
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_gemini.c
+Threads:    22
+Cores:      0-21
+Runs:       30
+Average:    0.491577 s
+Std dev:    0.010437 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

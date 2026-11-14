@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_metaAI.c ...
+>> Running 30 times (key=OE, args='100000', threads='2')
+   run  1: 1.943918 s
+   run  2: 1.665398 s
+   run  3: 1.660003 s
+   run  4: 1.661800 s
+   run  5: 1.657391 s
+   run  6: 1.660574 s
+   run  7: 1.655301 s
+   run  8: 1.660206 s
+   run  9: 1.657150 s
+   run 10: 1.660972 s
+   run 11: 1.658437 s
+   run 12: 1.661800 s
+   run 13: 1.653100 s
+   run 14: 1.655349 s
+   run 15: 1.658193 s
+   run 16: 1.659060 s
+   run 17: 1.660009 s
+   run 18: 1.652363 s
+   run 19: 1.655278 s
+   run 20: 1.658944 s
+   run 21: 1.654217 s
+   run 22: 1.658518 s
+   run 23: 1.660063 s
+   run 24: 1.667274 s
+   run 25: 1.653333 s
+   run 26: 1.656390 s
+   run 27: 1.661420 s
+   run 28: 1.654167 s
+   run 29: 1.654633 s
+   run 30: 1.655631 s
+---------------------------------------------
+Program:    OE
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_metaAI.c
+Threads:    2
+Cores:      0-1
+Runs:       30
+Average:    1.667696 s
+Std dev:    0.051411 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

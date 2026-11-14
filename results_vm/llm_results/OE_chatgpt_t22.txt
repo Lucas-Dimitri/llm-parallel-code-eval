@@ -1,0 +1,48 @@
+>> Compiling LLM_programs/OE/OE_chatgpt.c ...
+>> Running 30 times (key=OE, args='100000', threads='22')
+   run  1: 0.789447 s
+   run  2: 0.803547 s
+   run  3: 0.787971 s
+   run  4: 0.797820 s
+   run  5: 0.790493 s
+   run  6: 0.802660 s
+   run  7: 0.802216 s
+   run  8: 0.800874 s
+   run  9: 0.791571 s
+   run 10: 0.802198 s
+   run 11: 0.792635 s
+   run 12: 0.791510 s
+   run 13: 0.790049 s
+   run 14: 0.807529 s
+   run 15: 0.800688 s
+   run 16: 0.789637 s
+   run 17: 0.794726 s
+   run 18: 0.801833 s
+   run 19: 0.793387 s
+   run 20: 0.796110 s
+   run 21: 0.798509 s
+   run 22: 0.796926 s
+   run 23: 0.801387 s
+   run 24: 0.792871 s
+   run 25: 0.801557 s
+   run 26: 0.804472 s
+   run 27: 0.792516 s
+   run 28: 0.803870 s
+   run 29: 0.792309 s
+   run 30: 0.794506 s
+---------------------------------------------
+Program:    OE
+Source:     LLM_programs/OE/OE_chatgpt.c
+Threads:    22
+Cores:      0-21
+Runs:       30
+Average:    0.796861 s
+Std dev:    0.005428 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_chatgpt.c ...
+>> Running 30 times (key=DP, args='10000000000', threads='4')
+   run  1: 1.567561 s
+   run  2: 1.562743 s
+   run  3: 1.562706 s
+   run  4: 1.566018 s
+   run  5: 1.562549 s
+   run  6: 1.568734 s
+   run  7: 1.563073 s
+   run  8: 1.562848 s
+   run  9: 1.567144 s
+   run 10: 1.562375 s
+   run 11: 1.564230 s
+   run 12: 1.565608 s
+   run 13: 1.563502 s
+   run 14: 1.569889 s
+   run 15: 1.566617 s
+   run 16: 1.565337 s
+   run 17: 1.563680 s
+   run 18: 1.564606 s
+   run 19: 1.564782 s
+   run 20: 1.561134 s
+   run 21: 1.563697 s
+   run 22: 1.566621 s
+   run 23: 1.562837 s
+   run 24: 1.566315 s
+   run 25: 1.563662 s
+   run 26: 1.563033 s
+   run 27: 1.566182 s
+   run 28: 1.562845 s
+   run 29: 1.570168 s
+   run 30: 1.565725 s
+---------------------------------------------
+Program:    DP
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_chatgpt.c
+Threads:    4
+Cores:      0-3
+Runs:       30
+Average:    1.564874 s
+Std dev:    0.002263 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

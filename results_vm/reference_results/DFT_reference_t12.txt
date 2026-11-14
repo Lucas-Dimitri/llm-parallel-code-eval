@@ -1,0 +1,48 @@
+>> Compiling reference/DFT_openmp_reference.c ...
+>> Running 30 times (key=DFT, args='12 10000', threads='12')
+   run  1: 0.331913 s
+   run  2: 0.332054 s
+   run  3: 0.280020 s
+   run  4: 0.259930 s
+   run  5: 0.260331 s
+   run  6: 0.258890 s
+   run  7: 0.260061 s
+   run  8: 0.260368 s
+   run  9: 0.259740 s
+   run 10: 0.262875 s
+   run 11: 0.260148 s
+   run 12: 0.294584 s
+   run 13: 0.263350 s
+   run 14: 0.263321 s
+   run 15: 0.261297 s
+   run 16: 0.261195 s
+   run 17: 0.259337 s
+   run 18: 0.258783 s
+   run 19: 0.260815 s
+   run 20: 0.258704 s
+   run 21: 0.274772 s
+   run 22: 0.260301 s
+   run 23: 0.259769 s
+   run 24: 0.260378 s
+   run 25: 0.258871 s
+   run 26: 0.260885 s
+   run 27: 0.262346 s
+   run 28: 0.261081 s
+   run 29: 0.261307 s
+   run 30: 0.260036 s
+---------------------------------------------
+Program:    DFT
+Source:     reference/DFT_openmp_reference.c
+Threads:    12
+Cores:      0-11
+Runs:       30
+Average:    0.267582 s
+Std dev:    0.018712 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

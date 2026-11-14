@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_gemini.c ...
+>> Running 30 times (key=DP, args='10000000000', threads='6')
+   run  1: 1.108729 s
+   run  2: 1.106367 s
+   run  3: 1.102896 s
+   run  4: 1.107066 s
+   run  5: 1.104211 s
+   run  6: 1.106124 s
+   run  7: 1.104535 s
+   run  8: 1.105398 s
+   run  9: 1.106661 s
+   run 10: 1.100360 s
+   run 11: 1.104230 s
+   run 12: 1.106773 s
+   run 13: 1.111267 s
+   run 14: 1.108567 s
+   run 15: 1.104821 s
+   run 16: 1.103602 s
+   run 17: 1.107841 s
+   run 18: 1.104862 s
+   run 19: 1.104902 s
+   run 20: 1.106719 s
+   run 21: 1.100364 s
+   run 22: 1.106146 s
+   run 23: 1.107566 s
+   run 24: 1.106728 s
+   run 25: 1.106189 s
+   run 26: 1.105281 s
+   run 27: 1.110578 s
+   run 28: 1.101143 s
+   run 29: 1.103456 s
+   run 30: 1.108246 s
+---------------------------------------------
+Program:    DP
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_gemini.c
+Threads:    6
+Cores:      0-5
+Runs:       30
+Average:    1.105721 s
+Std dev:    0.002562 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

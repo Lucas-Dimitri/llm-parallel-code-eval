@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_claude.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='11')
+   run  1: 0.373826 s
+   run  2: 0.373832 s
+   run  3: 0.382008 s
+   run  4: 0.374267 s
+   run  5: 0.374276 s
+   run  6: 0.374497 s
+   run  7: 0.416863 s
+   run  8: 0.374616 s
+   run  9: 0.374178 s
+   run 10: 0.373839 s
+   run 11: 0.373866 s
+   run 12: 0.374310 s
+   run 13: 0.374341 s
+   run 14: 0.373989 s
+   run 15: 0.374144 s
+   run 16: 0.374023 s
+   run 17: 0.377068 s
+   run 18: 0.375795 s
+   run 19: 0.374624 s
+   run 20: 0.374074 s
+   run 21: 0.373956 s
+   run 22: 0.373916 s
+   run 23: 0.373857 s
+   run 24: 0.374120 s
+   run 25: 0.374080 s
+   run 26: 0.374087 s
+   run 27: 0.373976 s
+   run 28: 0.373947 s
+   run 29: 0.374637 s
+   run 30: 0.373862 s
+---------------------------------------------
+Program:    NI
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_claude.c
+Threads:    11
+Runs:       30
+Average:    0.375962 s
+Std dev:    0.007747 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.37
+  Cache miss rate:  35.43%
+  Branch miss rate: 0.0004%
+---------------------------------------------

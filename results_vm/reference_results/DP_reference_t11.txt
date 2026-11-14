@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/reference/DP_openmp_reference.c ...
+>> Running 30 times (key=DP, args='11 10000000000', threads='11')
+   run  1: 0.470653 s
+   run  2: 0.460114 s
+   run  3: 0.458164 s
+   run  4: 0.466857 s
+   run  5: 0.461995 s
+   run  6: 0.470803 s
+   run  7: 0.468797 s
+   run  8: 0.466086 s
+   run  9: 0.474753 s
+   run 10: 0.557077 s
+   run 11: 0.470843 s
+   run 12: 0.473747 s
+   run 13: 0.470115 s
+   run 14: 0.478441 s
+   run 15: 0.481250 s
+   run 16: 0.464327 s
+   run 17: 0.460742 s
+   run 18: 0.466969 s
+   run 19: 0.470440 s
+   run 20: 0.457087 s
+   run 21: 0.474962 s
+   run 22: 0.471284 s
+   run 23: 0.472564 s
+   run 24: 0.472736 s
+   run 25: 0.464790 s
+   run 26: 0.462091 s
+   run 27: 0.471539 s
+   run 28: 0.473081 s
+   run 29: 0.476658 s
+   run 30: 0.477293 s
+---------------------------------------------
+Program:    DP
+Source:     /home/dimitri/university/tcc/tcc_setup/reference/DP_openmp_reference.c
+Threads:    11
+Runs:       30
+Average:    0.472209 s
+Std dev:    0.016866 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              3.35
+  Cache miss rate:  33.15%
+  Branch miss rate: 0.0001%
+---------------------------------------------

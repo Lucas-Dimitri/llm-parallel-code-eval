@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_metaAI.c ...
+>> Running 30 times (key=MM, args='2048', threads='8')
+   run  1: 0.608099 s
+   run  2: 0.606471 s
+   run  3: 0.604834 s
+   run  4: 0.610499 s
+   run  5: 0.618818 s
+   run  6: 0.600353 s
+   run  7: 0.605363 s
+   run  8: 0.611684 s
+   run  9: 0.655655 s
+   run 10: 0.616180 s
+   run 11: 0.614657 s
+   run 12: 0.602661 s
+   run 13: 0.605212 s
+   run 14: 0.603899 s
+   run 15: 0.612320 s
+   run 16: 0.616094 s
+   run 17: 0.610008 s
+   run 18: 0.614753 s
+   run 19: 0.607801 s
+   run 20: 0.607481 s
+   run 21: 0.608223 s
+   run 22: 0.600859 s
+   run 23: 0.655497 s
+   run 24: 0.610231 s
+   run 25: 0.603011 s
+   run 26: 0.613146 s
+   run 27: 0.610892 s
+   run 28: 0.606359 s
+   run 29: 0.622945 s
+   run 30: 0.603489 s
+---------------------------------------------
+Program:    MM
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_metaAI.c
+Threads:    8
+Cores:      0-7
+Runs:       30
+Average:    0.612250 s
+Std dev:    0.012728 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

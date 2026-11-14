@@ -1,0 +1,48 @@
+>> Compiling LLM_programs/DFT/DFT_chatgpt.c ...
+>> Running 30 times (key=DFT, args='10000', threads='6')
+   run  1: 0.465815 s
+   run  2: 0.469016 s
+   run  3: 0.468465 s
+   run  4: 0.465863 s
+   run  5: 0.465228 s
+   run  6: 0.469822 s
+   run  7: 0.467262 s
+   run  8: 0.466265 s
+   run  9: 0.466196 s
+   run 10: 0.465457 s
+   run 11: 0.466150 s
+   run 12: 0.468207 s
+   run 13: 0.464422 s
+   run 14: 0.468369 s
+   run 15: 0.467698 s
+   run 16: 0.465501 s
+   run 17: 0.466008 s
+   run 18: 0.465783 s
+   run 19: 0.464394 s
+   run 20: 0.466927 s
+   run 21: 0.464154 s
+   run 22: 0.465070 s
+   run 23: 0.468080 s
+   run 24: 0.467751 s
+   run 25: 0.467957 s
+   run 26: 0.463278 s
+   run 27: 0.467845 s
+   run 28: 0.466451 s
+   run 29: 0.463871 s
+   run 30: 0.535102 s
+---------------------------------------------
+Program:    DFT
+Source:     LLM_programs/DFT/DFT_chatgpt.c
+Threads:    6
+Cores:      0-5
+Runs:       30
+Average:    0.468747 s
+Std dev:    0.012426 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

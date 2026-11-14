@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/reference/OE_openmp_reference.c ...
+>> Running 30 times (key=OE, args='22 100000', threads='22')
+   run  1: 0.598715 s
+   run  2: 0.598124 s
+   run  3: 0.595766 s
+   run  4: 0.597020 s
+   run  5: 0.597721 s
+   run  6: 0.594359 s
+   run  7: 0.596553 s
+   run  8: 0.596325 s
+   run  9: 0.597843 s
+   run 10: 0.597014 s
+   run 11: 0.598439 s
+   run 12: 0.596679 s
+   run 13: 0.597623 s
+   run 14: 0.596837 s
+   run 15: 0.597241 s
+   run 16: 0.595838 s
+   run 17: 0.596401 s
+   run 18: 0.598522 s
+   run 19: 0.598851 s
+   run 20: 0.595780 s
+   run 21: 0.597231 s
+   run 22: 0.596958 s
+   run 23: 0.596605 s
+   run 24: 0.598622 s
+   run 25: 0.595824 s
+   run 26: 0.595449 s
+   run 27: 0.597361 s
+   run 28: 0.595705 s
+   run 29: 0.596420 s
+   run 30: 0.596252 s
+---------------------------------------------
+Program:    OE
+Source:     /home/arquitetura/llm-parallel-code-eval/reference/OE_openmp_reference.c
+Threads:    22
+Cores:      0-21
+Runs:       30
+Average:    0.596936 s
+Std dev:    0.001086 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

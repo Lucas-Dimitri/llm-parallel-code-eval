@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_deepseek.c ...
+>> Running 30 times (key=TR, args='1280', threads='16')
+   run  1: 0.138102 s
+   run  2: 0.141365 s
+   run  3: 0.135405 s
+   run  4: 0.138105 s
+   run  5: 0.141561 s
+   run  6: 0.146836 s
+   run  7: 0.140200 s
+   run  8: 0.137490 s
+   run  9: 0.135301 s
+   run 10: 0.136475 s
+   run 11: 0.141113 s
+   run 12: 0.141069 s
+   run 13: 0.140384 s
+   run 14: 0.134919 s
+   run 15: 0.134810 s
+   run 16: 0.140039 s
+   run 17: 0.135672 s
+   run 18: 0.144389 s
+   run 19: 0.138652 s
+   run 20: 0.135154 s
+   run 21: 0.137250 s
+   run 22: 0.147002 s
+   run 23: 0.144542 s
+   run 24: 0.135470 s
+   run 25: 0.141259 s
+   run 26: 0.138355 s
+   run 27: 0.135894 s
+   run 28: 0.144651 s
+   run 29: 0.141040 s
+   run 30: 0.141173 s
+---------------------------------------------
+Program:    TR
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_deepseek.c
+Threads:    16
+Cores:      0-15
+Runs:       30
+Average:    0.139456 s
+Std dev:    0.003525 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

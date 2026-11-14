@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/DP/DP_claude.c ...
+>> Running 30 times (key=DP, args='10000000000', threads='11')
+   run  1: 0.398463 s
+   run  2: 0.403039 s
+   run  3: 0.398408 s
+   run  4: 0.402300 s
+   run  5: 0.416237 s
+   run  6: 0.396764 s
+   run  7: 0.397225 s
+   run  8: 0.392609 s
+   run  9: 0.395426 s
+   run 10: 0.394251 s
+   run 11: 0.398935 s
+   run 12: 0.396275 s
+   run 13: 0.395698 s
+   run 14: 0.399491 s
+   run 15: 0.399049 s
+   run 16: 0.401313 s
+   run 17: 0.399526 s
+   run 18: 0.398397 s
+   run 19: 0.407440 s
+   run 20: 0.401229 s
+   run 21: 0.398471 s
+   run 22: 0.397583 s
+   run 23: 0.396483 s
+   run 24: 0.401997 s
+   run 25: 0.395255 s
+   run 26: 0.394476 s
+   run 27: 0.396398 s
+   run 28: 0.400312 s
+   run 29: 0.407813 s
+   run 30: 0.400856 s
+---------------------------------------------
+Program:    DP
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/DP/DP_claude.c
+Threads:    11
+Runs:       30
+Average:    0.399391 s
+Std dev:    0.004645 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              3.88
+  Cache miss rate:  36.27%
+  Branch miss rate: 0.0001%
+---------------------------------------------

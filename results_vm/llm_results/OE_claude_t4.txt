@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_claude.c ...
+>> Running 30 times (key=OE, args='100000', threads='4')
+   run  1: 0.920361 s
+   run  2: 0.924541 s
+   run  3: 0.925985 s
+   run  4: 0.914551 s
+   run  5: 0.911497 s
+   run  6: 0.905300 s
+   run  7: 0.921933 s
+   run  8: 0.908691 s
+   run  9: 0.913484 s
+   run 10: 0.921762 s
+   run 11: 0.916307 s
+   run 12: 0.928929 s
+   run 13: 0.908437 s
+   run 14: 0.912630 s
+   run 15: 0.916103 s
+   run 16: 0.911691 s
+   run 17: 0.919832 s
+   run 18: 0.913024 s
+   run 19: 0.918457 s
+   run 20: 0.925084 s
+   run 21: 0.916800 s
+   run 22: 0.922089 s
+   run 23: 0.924575 s
+   run 24: 0.909756 s
+   run 25: 0.901638 s
+   run 26: 0.911566 s
+   run 27: 0.917261 s
+   run 28: 0.919494 s
+   run 29: 0.916390 s
+   run 30: 0.920719 s
+---------------------------------------------
+Program:    OE
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_claude.c
+Threads:    4
+Cores:      0-3
+Runs:       30
+Average:    0.916630 s
+Std dev:    0.006387 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

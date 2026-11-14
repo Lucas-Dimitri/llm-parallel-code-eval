@@ -1,0 +1,48 @@
+>> Compiling LLM_programs/OE/OE_metaAI.c ...
+>> Running 30 times (key=OE, args='100000', threads='14')
+   run  1: 0.987736 s
+   run  2: 0.990738 s
+   run  3: 0.986379 s
+   run  4: 0.983137 s
+   run  5: 0.981961 s
+   run  6: 0.982291 s
+   run  7: 0.980851 s
+   run  8: 0.982530 s
+   run  9: 0.991267 s
+   run 10: 0.986144 s
+   run 11: 0.991298 s
+   run 12: 0.994650 s
+   run 13: 2.810614 s
+   run 14: 0.986336 s
+   run 15: 0.992092 s
+   run 16: 0.983781 s
+   run 17: 0.996605 s
+   run 18: 0.993903 s
+   run 19: 0.992563 s
+   run 20: 1.001508 s
+   run 21: 0.984596 s
+   run 22: 0.985906 s
+   run 23: 0.985167 s
+   run 24: 0.990955 s
+   run 25: 0.988736 s
+   run 26: 0.990253 s
+   run 27: 0.995984 s
+   run 28: 0.991331 s
+   run 29: 0.997845 s
+   run 30: 0.992065 s
+---------------------------------------------
+Program:    OE
+Source:     LLM_programs/OE/OE_metaAI.c
+Threads:    14
+Cores:      0-13
+Runs:       30
+Average:    1.049974 s
+Std dev:    0.326983 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_deepseek.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='11')
+   run  1: 0.367963 s
+   run  2: 0.368999 s
+   run  3: 0.369134 s
+   run  4: 0.369459 s
+   run  5: 0.369246 s
+   run  6: 0.369430 s
+   run  7: 0.369616 s
+   run  8: 0.369676 s
+   run  9: 0.369747 s
+   run 10: 0.369792 s
+   run 11: 0.369915 s
+   run 12: 0.370341 s
+   run 13: 0.369814 s
+   run 14: 0.369964 s
+   run 15: 0.370056 s
+   run 16: 0.370066 s
+   run 17: 0.369962 s
+   run 18: 0.370115 s
+   run 19: 0.370140 s
+   run 20: 0.370550 s
+   run 21: 0.370587 s
+   run 22: 0.370159 s
+   run 23: 0.370244 s
+   run 24: 0.370437 s
+   run 25: 0.370452 s
+   run 26: 0.370720 s
+   run 27: 0.370452 s
+   run 28: 0.370690 s
+   run 29: 0.370511 s
+   run 30: 0.370735 s
+---------------------------------------------
+Program:    NI
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/NI/NI_deepseek.c
+Threads:    11
+Runs:       30
+Average:    0.369966 s
+Std dev:    0.000598 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.35
+  Cache miss rate:  32.66%
+  Branch miss rate: 0.0003%
+---------------------------------------------

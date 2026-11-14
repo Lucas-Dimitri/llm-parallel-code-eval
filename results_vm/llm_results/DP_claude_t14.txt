@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_claude.c ...
+>> Running 30 times (key=DP, args='10000000000', threads='14')
+   run  1: 0.799435 s
+   run  2: 0.801037 s
+   run  3: 0.797121 s
+   run  4: 0.797267 s
+   run  5: 0.796540 s
+   run  6: 0.796656 s
+   run  7: 0.800196 s
+   run  8: 0.796885 s
+   run  9: 0.797449 s
+   run 10: 0.798836 s
+   run 11: 0.796959 s
+   run 12: 0.801277 s
+   run 13: 0.797215 s
+   run 14: 0.796992 s
+   run 15: 0.796804 s
+   run 16: 0.796619 s
+   run 17: 0.800384 s
+   run 18: 0.796296 s
+   run 19: 0.799041 s
+   run 20: 0.797306 s
+   run 21: 0.797259 s
+   run 22: 0.799960 s
+   run 23: 0.797236 s
+   run 24: 0.797107 s
+   run 25: 0.796436 s
+   run 26: 0.797948 s
+   run 27: 0.799776 s
+   run 28: 0.797585 s
+   run 29: 0.796627 s
+   run 30: 0.797098 s
+---------------------------------------------
+Program:    DP
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_claude.c
+Threads:    14
+Cores:      0-13
+Runs:       30
+Average:    0.797912 s
+Std dev:    0.001467 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

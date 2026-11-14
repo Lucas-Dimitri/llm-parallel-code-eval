@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_deepseek.c ...
+>> Running 30 times (key=OE, args='100000', threads='8')
+   run  1: 0.645112 s
+   run  2: 0.647385 s
+   run  3: 0.642727 s
+   run  4: 0.639993 s
+   run  5: 0.644755 s
+   run  6: 0.644739 s
+   run  7: 0.638010 s
+   run  8: 0.643212 s
+   run  9: 0.648819 s
+   run 10: 0.644187 s
+   run 11: 0.644857 s
+   run 12: 0.639197 s
+   run 13: 0.642219 s
+   run 14: 0.642949 s
+   run 15: 0.650521 s
+   run 16: 0.643824 s
+   run 17: 0.641045 s
+   run 18: 0.653795 s
+   run 19: 0.646784 s
+   run 20: 0.643676 s
+   run 21: 0.640718 s
+   run 22: 0.643200 s
+   run 23: 0.651832 s
+   run 24: 0.645582 s
+   run 25: 0.641666 s
+   run 26: 0.644386 s
+   run 27: 0.639599 s
+   run 28: 0.643669 s
+   run 29: 0.644045 s
+   run 30: 0.639110 s
+---------------------------------------------
+Program:    OE
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/OE/OE_deepseek.c
+Threads:    8
+Cores:      0-7
+Runs:       30
+Average:    0.644054 s
+Std dev:    0.003645 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

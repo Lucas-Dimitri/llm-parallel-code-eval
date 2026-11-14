@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_metaAI.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='24')
+   run  1: 4.997366 s
+   run  2: 4.988084 s
+   run  3: 5.028959 s
+   run  4: 5.018987 s
+   run  5: 4.992441 s
+   run  6: 5.190092 s
+   run  7: 4.984195 s
+   run  8: 5.216962 s
+   run  9: 5.042608 s
+   run 10: 5.199123 s
+   run 11: 4.997843 s
+   run 12: 4.971133 s
+   run 13: 5.153800 s
+   run 14: 5.091388 s
+   run 15: 4.978081 s
+   run 16: 5.383456 s
+   run 17: 5.019421 s
+   run 18: 5.046115 s
+   run 19: 5.032169 s
+   run 20: 5.280671 s
+   run 21: 5.199294 s
+   run 22: 5.078573 s
+   run 23: 5.025848 s
+   run 24: 5.047932 s
+   run 25: 5.053709 s
+   run 26: 5.189790 s
+   run 27: 5.263271 s
+   run 28: 5.114054 s
+   run 29: 5.244681 s
+   run 30: 5.008975 s
+---------------------------------------------
+Program:    NI
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_metaAI.c
+Threads:    24
+Cores:      0-23
+Runs:       30
+Average:    5.094634 s
+Std dev:    0.108069 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

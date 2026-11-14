@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_chatgpt.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='12')
+   run  1: 0.264162 s
+   run  2: 0.256071 s
+   run  3: 0.256354 s
+   run  4: 0.254663 s
+   run  5: 0.254914 s
+   run  6: 0.256928 s
+   run  7: 0.254976 s
+   run  8: 0.257538 s
+   run  9: 0.254811 s
+   run 10: 0.254789 s
+   run 11: 0.257798 s
+   run 12: 0.256608 s
+   run 13: 0.257152 s
+   run 14: 0.256264 s
+   run 15: 0.256283 s
+   run 16: 0.254734 s
+   run 17: 0.254816 s
+   run 18: 0.257976 s
+   run 19: 0.257427 s
+   run 20: 0.257675 s
+   run 21: 0.256182 s
+   run 22: 0.257434 s
+   run 23: 0.257705 s
+   run 24: 0.257012 s
+   run 25: 0.256870 s
+   run 26: 0.254889 s
+   run 27: 0.256788 s
+   run 28: 0.257776 s
+   run 29: 0.257346 s
+   run 30: 0.256542 s
+---------------------------------------------
+Program:    NI
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_chatgpt.c
+Threads:    12
+Cores:      0-11
+Runs:       30
+Average:    0.256683 s
+Std dev:    0.001766 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/OE/OE_deepseek.c ...
+>> Running 30 times (key=OE, args='100000', threads='11')
+   run  1: 0.744234 s
+   run  2: 0.742187 s
+   run  3: 0.740250 s
+   run  4: 0.739343 s
+   run  5: 0.740046 s
+   run  6: 0.740406 s
+   run  7: 0.741302 s
+   run  8: 0.738764 s
+   run  9: 0.740280 s
+   run 10: 0.741183 s
+   run 11: 0.742003 s
+   run 12: 0.741594 s
+   run 13: 0.741920 s
+   run 14: 0.742184 s
+   run 15: 0.741514 s
+   run 16: 0.741016 s
+   run 17: 0.738989 s
+   run 18: 0.740314 s
+   run 19: 0.740599 s
+   run 20: 0.741764 s
+   run 21: 0.738906 s
+   run 22: 0.740933 s
+   run 23: 0.739301 s
+   run 24: 0.740459 s
+   run 25: 0.741307 s
+   run 26: 0.741390 s
+   run 27: 0.741286 s
+   run 28: 0.739668 s
+   run 29: 0.740271 s
+   run 30: 0.741589 s
+---------------------------------------------
+Program:    OE
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/OE/OE_deepseek.c
+Threads:    11
+Runs:       30
+Average:    0.740833 s
+Std dev:    0.001168 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              1.68
+  Cache miss rate:  8.06%
+  Branch miss rate: 0.0447%
+---------------------------------------------

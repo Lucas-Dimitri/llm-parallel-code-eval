@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_deepseek.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='14')
+   run  1: 0.359427 s
+   run  2: 0.346025 s
+   run  3: 0.356644 s
+   run  4: 0.356674 s
+   run  5: 0.352551 s
+   run  6: 0.353221 s
+   run  7: 0.352379 s
+   run  8: 0.339429 s
+   run  9: 0.352304 s
+   run 10: 0.352690 s
+   run 11: 0.352864 s
+   run 12: 0.352738 s
+   run 13: 0.352627 s
+   run 14: 0.351980 s
+   run 15: 0.352730 s
+   run 16: 0.352515 s
+   run 17: 0.351616 s
+   run 18: 0.341551 s
+   run 19: 0.354977 s
+   run 20: 0.355208 s
+   run 21: 0.351859 s
+   run 22: 0.353310 s
+   run 23: 0.353495 s
+   run 24: 0.352644 s
+   run 25: 0.353017 s
+   run 26: 0.352419 s
+   run 27: 0.351960 s
+   run 28: 0.352097 s
+   run 29: 0.353358 s
+   run 30: 0.351905 s
+---------------------------------------------
+Program:    NI
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_deepseek.c
+Threads:    14
+Cores:      0-13
+Runs:       30
+Average:    0.352207 s
+Std dev:    0.003795 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

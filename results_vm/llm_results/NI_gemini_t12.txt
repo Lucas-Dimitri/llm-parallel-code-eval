@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_gemini.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='12')
+   run  1: 0.257548 s
+   run  2: 0.257898 s
+   run  3: 0.257768 s
+   run  4: 0.254902 s
+   run  5: 0.257731 s
+   run  6: 0.264302 s
+   run  7: 0.269521 s
+   run  8: 0.256476 s
+   run  9: 0.254950 s
+   run 10: 0.254886 s
+   run 11: 0.254910 s
+   run 12: 0.256864 s
+   run 13: 0.255843 s
+   run 14: 0.255129 s
+   run 15: 0.256639 s
+   run 16: 0.257676 s
+   run 17: 0.256127 s
+   run 18: 0.255402 s
+   run 19: 0.258078 s
+   run 20: 0.257257 s
+   run 21: 0.254765 s
+   run 22: 0.257467 s
+   run 23: 0.256840 s
+   run 24: 0.254823 s
+   run 25: 0.256164 s
+   run 26: 0.257337 s
+   run 27: 0.256633 s
+   run 28: 0.258564 s
+   run 29: 0.257672 s
+   run 30: 0.293916 s
+---------------------------------------------
+Program:    NI
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/NI/NI_gemini.c
+Threads:    12
+Cores:      0-11
+Runs:       30
+Average:    0.258470 s
+Std dev:    0.007192 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_claude.c ...
+>> Running 30 times (key=MM, args='2048', threads='14')
+   run  1: 0.543653 s
+   run  2: 0.540448 s
+   run  3: 0.539166 s
+   run  4: 0.538630 s
+   run  5: 0.545718 s
+   run  6: 0.525268 s
+   run  7: 0.538303 s
+   run  8: 0.538175 s
+   run  9: 0.547299 s
+   run 10: 0.541839 s
+   run 11: 0.540483 s
+   run 12: 0.545235 s
+   run 13: 0.537714 s
+   run 14: 0.527420 s
+   run 15: 0.537078 s
+   run 16: 0.546339 s
+   run 17: 0.539890 s
+   run 18: 0.530273 s
+   run 19: 0.541720 s
+   run 20: 0.540190 s
+   run 21: 0.532785 s
+   run 22: 0.541658 s
+   run 23: 0.543232 s
+   run 24: 0.539615 s
+   run 25: 0.541797 s
+   run 26: 0.539601 s
+   run 27: 0.545652 s
+   run 28: 0.536870 s
+   run 29: 0.543170 s
+   run 30: 0.545514 s
+---------------------------------------------
+Program:    MM
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/MM/MM_claude.c
+Threads:    14
+Cores:      0-13
+Runs:       30
+Average:    0.539824 s
+Std dev:    0.005216 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_chatgpt.c ...
+>> Running 30 times (key=TR, args='1280', threads='4')
+   run  1: 2.691646 s
+   run  2: 2.654691 s
+   run  3: 2.673615 s
+   run  4: 2.682093 s
+   run  5: 2.693838 s
+   run  6: 2.667427 s
+   run  7: 2.652144 s
+   run  8: 2.695981 s
+   run  9: 2.684206 s
+   run 10: 2.668097 s
+   run 11: 2.655136 s
+   run 12: 2.655771 s
+   run 13: 2.718990 s
+   run 14: 2.678358 s
+   run 15: 2.697273 s
+   run 16: 2.659229 s
+   run 17: 2.664286 s
+   run 18: 2.694552 s
+   run 19: 2.651196 s
+   run 20: 2.668004 s
+   run 21: 2.677466 s
+   run 22: 2.668868 s
+   run 23: 2.704981 s
+   run 24: 2.721005 s
+   run 25: 2.669871 s
+   run 26: 2.669563 s
+   run 27: 2.683714 s
+   run 28: 2.676321 s
+   run 29: 2.659584 s
+   run 30: 2.644658 s
+---------------------------------------------
+Program:    TR
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/TR/TR_chatgpt.c
+Threads:    4
+Cores:      0-3
+Runs:       30
+Average:    2.676085 s
+Std dev:    0.019264 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/reference/DP_openmp_reference.c ...
+>> Running 30 times (key=DP, args='8 10000000000', threads='8')
+   run  1: 1.186225 s
+   run  2: 0.914709 s
+   run  3: 0.916416 s
+   run  4: 0.918405 s
+   run  5: 0.917635 s
+   run  6: 0.916198 s
+   run  7: 0.916057 s
+   run  8: 0.917190 s
+   run  9: 0.916345 s
+   run 10: 0.917136 s
+   run 11: 0.915996 s
+   run 12: 0.917167 s
+   run 13: 0.916061 s
+   run 14: 0.917681 s
+   run 15: 0.916243 s
+   run 16: 0.922851 s
+   run 17: 0.915129 s
+   run 18: 0.925011 s
+   run 19: 0.915445 s
+   run 20: 0.916283 s
+   run 21: 0.916710 s
+   run 22: 0.923934 s
+   run 23: 0.914581 s
+   run 24: 0.917560 s
+   run 25: 0.916865 s
+   run 26: 0.917427 s
+   run 27: 0.916921 s
+   run 28: 0.915900 s
+   run 29: 0.923192 s
+   run 30: 0.918663 s
+---------------------------------------------
+Program:    DP
+Source:     /home/arquitetura/llm-parallel-code-eval/reference/DP_openmp_reference.c
+Threads:    8
+Cores:      0-7
+Runs:       30
+Average:    0.926531 s
+Std dev:    0.048295 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

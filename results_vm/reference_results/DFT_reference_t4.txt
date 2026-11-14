@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/reference/DFT_openmp_reference.c ...
+>> Running 30 times (key=DFT, args='4 10000', threads='4')
+   run  1: 0.996662 s
+   run  2: 0.721433 s
+   run  3: 0.647132 s
+   run  4: 0.650536 s
+   run  5: 0.649856 s
+   run  6: 0.646242 s
+   run  7: 0.653376 s
+   run  8: 0.650531 s
+   run  9: 0.650716 s
+   run 10: 0.644815 s
+   run 11: 0.649539 s
+   run 12: 0.649177 s
+   run 13: 0.649975 s
+   run 14: 0.648539 s
+   run 15: 0.646637 s
+   run 16: 0.644719 s
+   run 17: 0.645952 s
+   run 18: 0.645160 s
+   run 19: 0.645817 s
+   run 20: 0.648904 s
+   run 21: 0.645080 s
+   run 22: 0.646479 s
+   run 23: 0.646939 s
+   run 24: 0.645040 s
+   run 25: 0.645108 s
+   run 26: 0.649172 s
+   run 27: 0.649398 s
+   run 28: 0.646544 s
+   run 29: 0.645570 s
+   run 30: 0.647923 s
+---------------------------------------------
+Program:    DFT
+Source:     /home/arquitetura/llm-parallel-code-eval/reference/DFT_openmp_reference.c
+Threads:    4
+Cores:      0-3
+Runs:       30
+Average:    0.661766 s
+Std dev:    0.063618 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

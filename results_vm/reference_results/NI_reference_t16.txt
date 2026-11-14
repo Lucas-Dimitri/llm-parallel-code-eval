@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/reference/NI_openmp_reference.c ...
+>> Running 30 times (key=NI, args='16 1000000000', threads='16')
+   run  1: 0.324289 s
+   run  2: 0.322026 s
+   run  3: 0.322993 s
+   run  4: 0.322253 s
+   run  5: 0.322315 s
+   run  6: 0.318442 s
+   run  7: 0.325523 s
+   run  8: 0.323774 s
+   run  9: 0.317981 s
+   run 10: 0.323697 s
+   run 11: 0.318152 s
+   run 12: 0.320816 s
+   run 13: 0.322359 s
+   run 14: 0.321492 s
+   run 15: 0.318972 s
+   run 16: 0.322062 s
+   run 17: 0.319714 s
+   run 18: 0.319041 s
+   run 19: 0.322354 s
+   run 20: 0.322249 s
+   run 21: 0.322162 s
+   run 22: 0.322418 s
+   run 23: 0.322178 s
+   run 24: 0.318315 s
+   run 25: 0.322389 s
+   run 26: 0.322254 s
+   run 27: 0.321615 s
+   run 28: 0.319522 s
+   run 29: 0.322558 s
+   run 30: 0.321887 s
+---------------------------------------------
+Program:    NI
+Source:     /home/arquitetura/llm-parallel-code-eval/reference/NI_openmp_reference.c
+Threads:    16
+Cores:      0-15
+Runs:       30
+Average:    0.321527 s
+Std dev:    0.001893 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

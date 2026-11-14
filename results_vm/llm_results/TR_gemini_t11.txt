@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/TR/TR_gemini.c ...
+>> Running 30 times (key=TR, args='1280', threads='11')
+   run  1: 0.374601 s
+   run  2: 0.385591 s
+   run  3: 0.383117 s
+   run  4: 0.378055 s
+   run  5: 0.376422 s
+   run  6: 0.380405 s
+   run  7: 0.383906 s
+   run  8: 0.379598 s
+   run  9: 0.377450 s
+   run 10: 0.384709 s
+   run 11: 0.372559 s
+   run 12: 0.376961 s
+   run 13: 0.376260 s
+   run 14: 0.388846 s
+   run 15: 0.392708 s
+   run 16: 0.379570 s
+   run 17: 0.380498 s
+   run 18: 0.379130 s
+   run 19: 0.379466 s
+   run 20: 0.383032 s
+   run 21: 0.375780 s
+   run 22: 0.430584 s
+   run 23: 0.384282 s
+   run 24: 0.379004 s
+   run 25: 0.375141 s
+   run 26: 0.382646 s
+   run 27: 0.376343 s
+   run 28: 0.376863 s
+   run 29: 0.381241 s
+   run 30: 0.380527 s
+---------------------------------------------
+Program:    TR
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/TR/TR_gemini.c
+Threads:    11
+Runs:       30
+Average:    0.381843 s
+Std dev:    0.010016 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.53
+  Cache miss rate:  28.87%
+  Branch miss rate: 0.0611%
+---------------------------------------------

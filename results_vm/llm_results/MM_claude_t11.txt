@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_claude.c ...
+>> Running 30 times (key=MM, args='2048', threads='11')
+   run  1: 0.400584 s
+   run  2: 0.405267 s
+   run  3: 0.401033 s
+   run  4: 0.401343 s
+   run  5: 0.402197 s
+   run  6: 0.401573 s
+   run  7: 0.402340 s
+   run  8: 0.401220 s
+   run  9: 0.400968 s
+   run 10: 0.399703 s
+   run 11: 0.401161 s
+   run 12: 0.401364 s
+   run 13: 0.401655 s
+   run 14: 0.401147 s
+   run 15: 0.401638 s
+   run 16: 0.401807 s
+   run 17: 0.401164 s
+   run 18: 0.402177 s
+   run 19: 0.401668 s
+   run 20: 0.401814 s
+   run 21: 0.401309 s
+   run 22: 0.400570 s
+   run 23: 0.400797 s
+   run 24: 0.403041 s
+   run 25: 0.399176 s
+   run 26: 0.402186 s
+   run 27: 0.400852 s
+   run 28: 0.401808 s
+   run 29: 0.402109 s
+   run 30: 0.400127 s
+---------------------------------------------
+Program:    MM
+Source:     /home/dimitri/university/tcc/tcc_setup/LLM_programs/MM/MM_claude.c
+Threads:    11
+Runs:       30
+Average:    0.401460 s
+Std dev:    0.001057 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.96
+  Cache miss rate:  2.53%
+  Branch miss rate: 0.1950%
+---------------------------------------------

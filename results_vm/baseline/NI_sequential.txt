@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/programs/NI/NI_sequential.c ...
+>> Running 30 times (key=NI, args='1000000000', threads='default')
+   run  1: 2.502460 s
+   run  2: 2.502319 s
+   run  3: 2.496120 s
+   run  4: 2.499323 s
+   run  5: 2.494320 s
+   run  6: 2.496285 s
+   run  7: 2.494281 s
+   run  8: 2.503817 s
+   run  9: 2.497550 s
+   run 10: 2.494601 s
+   run 11: 2.498653 s
+   run 12: 2.499873 s
+   run 13: 2.495176 s
+   run 14: 2.500911 s
+   run 15: 2.499314 s
+   run 16: 2.504304 s
+   run 17: 2.498136 s
+   run 18: 2.492964 s
+   run 19: 2.497055 s
+   run 20: 2.497595 s
+   run 21: 2.496711 s
+   run 22: 2.503687 s
+   run 23: 2.497312 s
+   run 24: 2.496397 s
+   run 25: 2.497767 s
+   run 26: 2.493645 s
+   run 27: 2.495878 s
+   run 28: 2.496985 s
+   run 29: 2.496068 s
+   run 30: 2.496542 s
+---------------------------------------------
+Program:    NI
+Source:     /home/arquitetura/llm-parallel-code-eval/programs/NI/NI_sequential.c
+Threads:    sequential/default
+Cores:      0
+Runs:       30
+Average:    2.497868 s
+Std dev:    0.003027 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

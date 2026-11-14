@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_deepseek.c ...
+>> Running 30 times (key=DP, args='10000000000', threads='8')
+   run  1: 0.916812 s
+   run  2: 0.916158 s
+   run  3: 0.917442 s
+   run  4: 0.916609 s
+   run  5: 0.917575 s
+   run  6: 0.916297 s
+   run  7: 0.917514 s
+   run  8: 0.915945 s
+   run  9: 0.916335 s
+   run 10: 0.918227 s
+   run 11: 0.917380 s
+   run 12: 0.917761 s
+   run 13: 0.916343 s
+   run 14: 0.916964 s
+   run 15: 0.917656 s
+   run 16: 0.915113 s
+   run 17: 0.918208 s
+   run 18: 0.915687 s
+   run 19: 0.916802 s
+   run 20: 0.917924 s
+   run 21: 0.918451 s
+   run 22: 0.915848 s
+   run 23: 0.914984 s
+   run 24: 0.923659 s
+   run 25: 0.915787 s
+   run 26: 0.916854 s
+   run 27: 0.914299 s
+   run 28: 0.916132 s
+   run 29: 0.924308 s
+   run 30: 0.915913 s
+---------------------------------------------
+Program:    DP
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_deepseek.c
+Threads:    8
+Cores:      0-7
+Runs:       30
+Average:    0.917166 s
+Std dev:    0.002079 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------

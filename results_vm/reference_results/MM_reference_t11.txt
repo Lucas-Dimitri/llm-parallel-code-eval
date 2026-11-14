@@ -1,0 +1,47 @@
+>> Compiling /home/dimitri/university/tcc/tcc_setup/reference/MM_openmp_reference.c ...
+>> Running 30 times (key=MM, args='11 2048', threads='11')
+   run  1: 0.408126 s
+   run  2: 0.409935 s
+   run  3: 0.409193 s
+   run  4: 0.409246 s
+   run  5: 0.407684 s
+   run  6: 0.409912 s
+   run  7: 0.410075 s
+   run  8: 0.423427 s
+   run  9: 0.411202 s
+   run 10: 0.408218 s
+   run 11: 0.410142 s
+   run 12: 0.410129 s
+   run 13: 0.409512 s
+   run 14: 0.412683 s
+   run 15: 0.411971 s
+   run 16: 0.409903 s
+   run 17: 0.411539 s
+   run 18: 0.411702 s
+   run 19: 0.409304 s
+   run 20: 0.414161 s
+   run 21: 0.412412 s
+   run 22: 0.410960 s
+   run 23: 0.407859 s
+   run 24: 0.410278 s
+   run 25: 0.410744 s
+   run 26: 0.419055 s
+   run 27: 0.413349 s
+   run 28: 0.412418 s
+   run 29: 0.411976 s
+   run 30: 0.412360 s
+---------------------------------------------
+Program:    MM
+Source:     /home/dimitri/university/tcc/tcc_setup/reference/MM_openmp_reference.c
+Threads:    11
+Runs:       30
+Average:    0.411316 s
+Std dev:    0.003152 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              2.97
+  Cache miss rate:  2.51%
+  Branch miss rate: 0.1950%
+---------------------------------------------

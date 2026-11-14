@@ -1,0 +1,48 @@
+>> Compiling /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_metaAI.c ...
+>> Running 30 times (key=DP, args='10000000000', threads='20')
+   run  1: 0.712185 s
+   run  2: 0.714938 s
+   run  3: 0.712197 s
+   run  4: 0.710826 s
+   run  5: 0.710381 s
+   run  6: 0.721605 s
+   run  7: 0.705053 s
+   run  8: 0.711696 s
+   run  9: 0.702749 s
+   run 10: 0.712046 s
+   run 11: 0.714457 s
+   run 12: 0.708155 s
+   run 13: 0.710787 s
+   run 14: 0.707145 s
+   run 15: 0.710297 s
+   run 16: 0.711388 s
+   run 17: 0.705406 s
+   run 18: 0.710381 s
+   run 19: 0.707718 s
+   run 20: 0.709001 s
+   run 21: 0.710651 s
+   run 22: 0.701629 s
+   run 23: 0.726364 s
+   run 24: 0.712851 s
+   run 25: 0.710284 s
+   run 26: 0.711286 s
+   run 27: 0.709540 s
+   run 28: 0.711913 s
+   run 29: 0.711708 s
+   run 30: 0.707352 s
+---------------------------------------------
+Program:    DP
+Source:     /home/arquitetura/llm-parallel-code-eval/LLM_programs/DP/DP_metaAI.c
+Threads:    20
+Cores:      0-19
+Runs:       30
+Average:    0.710733 s
+Std dev:    0.004694 s
+---------------------------------------------
+>> Collecting hardware counters (perf stat, 5 runs) ...
+---------------------------------------------
+Hardware counters (avg over 5 perf runs):
+  IPC:              n/a
+  Cache miss rate:  n/a%
+  Branch miss rate: n/a%
+---------------------------------------------
