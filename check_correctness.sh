@@ -19,7 +19,7 @@ LDLIBS="-lm"
 declare -A INPUT_ARGS
 eval "$(grep -E '^INPUT_ARGS\[' "$SCRIPT_DIR/measure.sh")"
 
-KEYS=(${KEYS:-DP NI MM OE DFT TR})
+KEYS=(${KEYS:-DP NI MM OE DFT TR NUS CHO ADI CG MG FT})
 MODELS=(chatgpt gemini claude metaAI deepseek)
 if [[ $# -gt 0 ]]; then
   THREAD_LIST=("$@")
@@ -31,8 +31,17 @@ fi
 BIN="$(mktemp /tmp/tcc_chk.XXXXXX)"
 trap 'rm -f "$BIN"' EXIT
 
-# Prints the program's result, without the timing line
-result() { "$@" 2>/dev/null | grep -v "Execution time"; }
+# Prints the program's result, without the timing line. For NPB, only its own
+# verification verdict: the iteration printouts may differ in the last digits
+# when a parallel version sums in another order, which NPB's check tolerates.
+NPB_KEYS=" CG MG FT "
+result() {
+  if [[ "$NPB_KEYS" == *" $KEY "* ]]; then
+    "$@" 2>/dev/null | grep -i "verification" | sed 's/^ *//'
+  else
+    "$@" 2>/dev/null | grep -v "Execution time"
+  fi
+}
 
 compile() {
   gcc $CFLAGS "$1" -o "$BIN" $LDLIBS 2>/dev/null
@@ -53,6 +62,9 @@ for KEY in "${KEYS[@]}"; do
       SRC="$SCRIPT_DIR/reference/${KEY}_openmp_reference.c"
     else
       SRC="$SCRIPT_DIR/LLM_programs/$KEY/${KEY}_${VERSION}.c"
+    fi
+    if [[ ! -f "$SRC" ]]; then
+      echo "   $VERSION: not found (skipped)"; continue
     fi
     if ! compile "$SRC"; then
       echo "   $VERSION: COMPILE_FAILED"; fails=$((fails + 1)); continue

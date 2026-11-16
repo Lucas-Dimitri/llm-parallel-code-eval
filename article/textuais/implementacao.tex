@@ -1,0 +1,101 @@
+%==============================================================================
+\chapter{Schedule}\label{cap:implementacao}
+%==============================================================================
+
+This chapter presents the schedule for the continuation of this work in the
+Final Undergraduate Project~II (TCC~II). The present stage (TCC~I) established
+the research questions, the experimental methodology, and a first round of
+results covering five LLMs across six PAMPAR programs, using a single
+zero-shot prompt with the sequential source code as input. The activities
+planned for TCC~II extend this foundation along the directions identified in
+Chapter~\ref{cap:conclusao}, deepening the evaluation and consolidating the
+findings into a complete study.
+
+Two of the planned directions deserve particular emphasis, as they broaden the
+scope of the central research question from \textit{how well current LLMs
+parallelize code} to \textit{how the way the task is requested affects the
+result}.
+
+The first direction concerns \textbf{prompt engineering}. The results obtained
+in TCC~I used a single zero-shot prompt, in which the task is described without
+worked examples. The literature on prompting describes several techniques that
+can substantially change the quality of generated code. In few-shot prompting,
+a small number of input--output examples are provided before the target task,
+allowing the model to infer the expected pattern from
+demonstrations~\citeonline{brown2020fewshot}. In chain-of-thought prompting, the
+model is guided to reason explicitly through intermediate steps before producing
+the final answer, which has been shown to improve performance on tasks that
+require multi-step reasoning~\citeonline{wei2022cot}; a simple zero-shot variant
+of this technique prepends an instruction such as ``let us reason step by
+step''~\citeonline{kojima2022zeroshot}. These techniques are directly relevant
+to the failures observed in TCC~I, several of which stemmed from a model
+selecting an inappropriate parallelization strategy rather than from an inability
+to write valid code. Evaluating whether guided prompting helps the models reason
+about data dependencies before generating code is therefore a natural extension.
+
+The second direction concerns \textbf{varying the input given to the model}. In
+TCC~I, each model received the complete sequential source code and was asked
+only to parallelize it, which isolates the parallelization capability from the
+implementation capability. An alternative is to provide only the name or a
+high-level description of the algorithm (for example, ``write a parallel OpenMP
+implementation of matrix multiplication'') and require the model to implement
+\emph{and} parallelize it. Comparing the two input conditions---with and without
+the sequential code as a worked model---would reveal whether the models depend on
+the provided implementation or are able to produce efficient parallel code from a
+specification alone. This comparison also connects to a finding from TCC~I, in
+which one model improved the algorithm itself rather than merely parallelizing
+it; providing only a description might lead more models to such reimplementations.
+A methodological challenge of this direction is correctness verification: when the
+model implements the algorithm from scratch, ensuring that its output is
+comparable to the sequential oracle requires additional care in defining inputs
+and expected results.
+
+The planned activities are:
+
+\begin{alineas}
+\item \textbf{A1 --- Literature review extension:} expand the review of related
+work on LLM-based parallel code generation and prompt engineering, incorporating
+newly published studies and positioning the present work within them.
+\item \textbf{A2 --- Prompt engineering experiments:} evaluate different
+prompting strategies (zero-shot, few-shot, and chain-of-thought) applied
+uniformly across all models and programs, in order to measure how the prompting
+approach affects the correctness and efficiency of the generated code.
+\item \textbf{A3 --- Input variation experiments:} compare two input conditions,
+one providing the complete sequential code and one providing only the name or a
+high-level description of the algorithm, to assess the models' dependence on a
+worked implementation.
+\item \textbf{A4 --- Benchmark extension:} extend the evaluation to additional
+PAMPAR programs, particularly Jacobi Method (JA), Game of Life (GL), and
+Gram-Schmidt (GS).
+\item \textbf{A5 --- Consolidated analysis:} integrate all results, refine the
+failure-mode characterization, and strengthen the comparative analysis across
+models, prompting strategies, and input conditions.
+\item \textbf{A6 --- Writing and revision:} write the additional chapters,
+revise the full text, and prepare the final document.
+\item \textbf{A7 --- Final presentation:} prepare and deliver the TCC~II
+defense.
+\end{alineas}
+
+Table~\ref{tab:schedule} presents the distribution of these activities across
+the five months planned for TCC~II. Each filled cell ($\bullet$) indicates that
+the corresponding activity is scheduled for that month.
+
+\begin{table}[htbp]
+\centering
+\caption{Planned schedule of activities for TCC~II.}
+\label{tab:schedule}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Activity} & \textbf{M1} & \textbf{M2} & \textbf{M3} & \textbf{M4} & \textbf{M5} \\
+\midrule
+A1 --- Literature review extension   & $\bullet$ & $\bullet$ &           &           &           \\
+A2 --- Prompt engineering            & $\bullet$ & $\bullet$ & $\bullet$ &           &           \\
+A3 --- Input variation               &           & $\bullet$ & $\bullet$ & $\bullet$ &           \\
+A4 --- Benchmark extension           &           &           & $\bullet$ & $\bullet$ &           \\
+A5 --- Consolidated analysis         &           &           &           & $\bullet$ & $\bullet$ \\
+A6 --- Writing and revision          &           &           &           & $\bullet$ & $\bullet$ \\
+A7 --- Final presentation            &           &           &           &           & $\bullet$ \\
+\bottomrule
+\end{tabular}
+\fonte{The author.}
+\end{table}

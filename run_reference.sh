@@ -9,10 +9,13 @@ OUT_DIR="$SCRIPT_DIR/reference_results"
 THREADS="${1:-11}"
 mkdir -p "$OUT_DIR"
 
-KEYS=(${KEYS:-DP NI MM OE DFT TR})   # override, e.g. KEYS="DFT" ./run_sweep.sh
+KEYS=(${KEYS:-DP NI MM OE DFT TR NUS CHO ADI CG MG FT})   # override, e.g. KEYS="DFT" ./run_sweep.sh
 
 for KEY in "${KEYS[@]}"; do
   SRC="$SCRIPT_DIR/reference/${KEY}_openmp_reference.c"
+  if [[ ! -f "$SRC" ]]; then
+    echo ">> skipping $(basename "$SRC") (not found)"; continue
+  fi
   OUT="$OUT_DIR/${KEY}_reference_t${THREADS}.txt"
   echo "=============================="
   echo ">> $KEY (${THREADS} threads)"

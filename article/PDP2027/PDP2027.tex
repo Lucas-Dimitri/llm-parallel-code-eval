@@ -1,0 +1,805 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{matrix, positioning}
+\usepackage{enumitem}
+\usepackage{float}     
+\usepackage{comment}
+\usepackage{adjustbox}
+\usepackage{stfloats}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{orcidlink}
+%\usepackage{caption}%new
+%\usepackage{subcaption}%new
+\usepackage{booktabs}%new
+\usepackage{circledtext}%new
+\circledtextset{resize=real}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+    
+\title{Evaluation of Automatic Parallelization of Sequential C Code Using LLMs}
+
+\author{Omitted for blind review}
+%\vspace{15ex}
+\begin{comment}
+\author{
+\IEEEauthorblockN{Lucas Ferreira Soares\IEEEauthorrefmark{1}\orcidlink{},
+Claudio Schepke\IEEEauthorrefmark{2}\orcidlink{0000-0003-4118-8831},
+José Rufino\IEEEauthorrefmark{1}\orcidlink{0000-0002-1344-8264}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Research Centre in Digitalization and Intelligent Robotics (CeDRI), Laboratório Associado para a Sustentabilidade e \\Tecnologia em Regiões de Montanha (SusTEC), Instituto Politécnico de Bragança, 5300-253 Bragança, Portugal \\ Email: a61467@alunos.ipb.pt, \{balsa,rufino\}@ipb.pt}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}
+Laboratory of Advanced Studies in Computation (LEA), Federal University of Pampa (UNIPAMPA), Alegrete, Brazil\\
+Email: claudioschepke@unipampa.edu.br}
+}
+\end{comment}
+
+\maketitle
+
+\begin{abstract}
+This work evaluates the capability of five Large Language Models (LLMs) -- ChatGPT, Gemini, Claude, Meta AI, and DeepSeek -- to convert sequential C programs into parallel implementations using OpenMP. 
+The evaluation was conducted on six programs from the PAMPAR benchmark, ranging from reductions with independent iterations to algorithms with complex data dependencies. 
+Each model received the same standardized prompt and the sequential source code in a single attempt, without iterative refinement. 
+The generated programs were assessed for compilation, output correctness, and the speedup achieved on a shared-memory machine, using PAMPAR's reference implementations as a performance target. 
+All generated programs compiled and produced output identical to the sequential version. 
+In terms of performance, the frontier models approached the speedup of the PAMPAR reference implementations, while the remaining models showed efficiency losses concentrated in the programs with more complex parallelization patterns. 
+The results indicate that current LLMs can generate functionally correct parallel code for a wide variety of programs in a single attempt, but they differ significantly in efficiency as parallelization complexity increases. 
+\end{abstract}
+
+\begin{IEEEkeywords}
+Large Language Models, Automatic Parallelization, OpenMP, High-Performance Computing
+\end{IEEEkeywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Multicore processors are now standard, from commodity desktops to HPC nodes, yet much scientific and engineering software is still written sequentially. 
+Converting a sequential program into a parallel one requires more than inserting directives: the programmer must identify independent computations, reason about data sharing and race conditions, and place synchronization correctly. 
+Mistakes in these steps can produce code that compiles and even yields plausible output, yet is incorrect or slower than the original.
+
+Large Language Models (LLMs) such as ChatGPT, Gemini, Claude, Meta AI, and DeepSeek are trained on large corpora of text and source code, and can generate, explain, and transform programs across many languages. 
+This raises the question of whether they can automate the conversion of sequential C code into parallel code using OpenMP, the most widely used programming interface for shared-memory parallelism.
+
+We investigate this question through a controlled empirical evaluation. 
+We ask five LLMs to parallelize six sequential C programs from the PAMPAR benchmark \cite{GARCIA:PAMPAR:2020}, which provides validated sequential implementations together with reference OpenMP versions. 
+We evaluate the generated programs for compilation success, output correctness, and speedup relative to the sequential baseline, using hardware performance counters to support the analysis.
+
+The main contributions of this work are: 
+\begin{itemize}
+\item A controlled evaluation of five publicly accessible LLMs across six benchmark programs, ranging from embarrassingly parallel reductions to wavefront data dependencies;
+\item A correctness and performance analysis of all generated programs, using the PAMPAR reference implementations as a performance baseline;
+\item A characterization of recurring failure patterns in which the generated code compiles and produces correct output but achieves little or no parallel speedup.
+\end{itemize}
+
+Section~\ref{sec:trabalhos} reviews related work, Section~\ref{sec:methodology} describes the methodology, Section~\ref{sec:resultado} presents the results, and Section~\ref{sec:conclusion} concludes the paper.
+
+%The remainder of the paper is organized in the following way: \autoref{sec:anen_and_kdanen} describes the classical AnEn method, introduces the k-d tree data structure, and its combination with AnEn; \autoref{sec:pthreads_implementations} describes the parallelization approach applied to the classical AnEn and k-d tree-based AnEn methods; \autoref{sec:application_wind} presents the validation of the proposed methods’ and their computational performance as a function of different parameter values, such as the half-window size or the extension of the training period; finally, \autoref{sec:conclusion} presents concluding remarks and points to directions for future work.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Work}\label{sec:trabalhos}
+%==============================
+
+This section reviews papers on Large Language Models (LLMs) for code generation, with an emphasis on studies of parallel and High-Performance Computing (HPC) code. 
+
+%==============================
+%\section{LLMs for Code Generation} \label{sec:rw_codegen}
+%==============================
+
+The application of LLMs to source code generation has expanded significantly since the introduction of large-scale, code-trained models. 
+These models are evaluated on a variety of tasks, including code completion, test generation, bug fixing, and translation between programming languages. 
+Standard benchmarks such as HumanEval \cite{chen2021codex} and MBPP \cite{austin2021mbpp} measure the ability to generate short, self-contained functions from natural language descriptions, and leading models achieve high pass rates on these benchmarks.
+
+For scientific and engineering code, the evaluation landscape is less mature. 
+Scientific programs typically involve domain-specific numerical algorithms, restricted memory access patterns, and correctness constraints that go beyond simple input-output checking. 
+LLMs trained primarily on general-purpose programming tasks may not have sufficient representation of HPC patterns in their training data, which makes their applicability to %scientific 
+parallelization an open empirical question \cite{chen2023lm4hpc}.
+
+%==============================
+%\section{LLMs for Parallel and HPC Code} \label{sec:rw_hpc}
+
+\cite{Godoy2024llm} evaluated the ability of GPT-based models to generate parallel code for scientific kernels in C++, Fortran, Python, and Julia, targeting programming models such as OpenMP. 
+The study examined both code generation from a natural language description and the auto-parallelization of sequential code. 
+The results showed that the correctness of the generated code correlated with the maturity of the target programming model: OpenMP and CUDA scored highly, while less mature models lagged behind. 
+A related study by the same group \cite{Godoy2023codex} evaluated OpenAI Codex, accessed through GitHub Copilot, for generating HPC numerical kernels across a similar range of languages and programming models. 
+In a complementary comparison, \cite{valerolara2023comparing} contrasted Llama-2 and GPT-3 on the same family of HPC kernels, finding that the proprietary model produced more reliable parallel code than the open-weight model available at the time.
+
+A more comprehensive evaluation was carried out by \cite{nichols2024parallel}, who introduced ParEval, a benchmark of parallel programming problems spanning multiple execution models, and used it to systematically compare several LLMs. 
+Their work found that LLMs are substantially worse at generating parallel code than at generating equivalent serial code, indicating that parallelism remains a distinct and harder capability for current models. 
+This observation directly motivates the present work, which focuses specifically on the sequential-to-parallel conversion task rather than on generation from scratch. 
+
+Beyond generation, LLMs have been applied to adjacent HPC tasks. 
+\cite{lei2023dataset} constructed a dataset for translating OpenMP code between Fortran and C++ and showed that a fine-tuned model could outperform GPT-4 on this translation task. 
+\cite{chen2023lm4hpc} provide a broader overview of opportunities and challenges at the intersection of LLMs and HPC, including dataset construction and tooling that extends beyond code generation. Together, these works show that the gap between syntactic correctness and performance efficiency is a recurring theme in LLM-generated HPC code, motivating the empirical evaluation in the present work.
+
+
+%==============================
+%\section{Automatic Parallelization} \label{sec:rw_auto}
+
+Automatic parallelization of sequential programs has been studied for decades through compiler-based approaches. 
+Classical parallelizing compilers analyze data dependence graphs to identify loop iterations that can execute concurrently and automatically insert parallel constructs. 
+Tools such as Pluto \cite{bondhugula2008pluto} and Polly \cite{grosser2012polly} exploit the polyhedral model to transform loop nests for both parallelism and data locality. 
+Despite substantial research, fully automatic parallelization remains a difficult open problem: compilers rely on conservative dependence analysis and cannot exploit high-level semantic knowledge about the program.
+
+LLMs represent a fundamentally different approach to the same problem. Rather than analyzing program structure statically, a language model draws on patterns learned from examples of both sequential and parallel programs during training. 
+That means an LLM may correctly parallelize a program by recognizing it as an instance of a known pattern—such as a parallel reduction or a wavefront algorithm—without performing explicit data flow analysis. 
+At the same time, LLMs lack the formal guaranties that compiler-based methods provide, making empirical evaluation essential.
+
+%==============================
+%\section{Summary} \label{sec:rw_summary}
+
+%Table~\ref{tab:rw} summarizes the reviewed works, 
+Table~\ref{tab:rw} summarizes the related works discussed in this section. 
+It includes the LLMs evaluated, the programming languages targeted, the benchmarks used, and the PPI studied. 
+Our work is distinguished by its focus on a fixed, controlled set of benchmark programs from the PAMPAR suite, the inclusion of five diverse LLMs accessed through their standard web interfaces, and the use of both speedup measurements and hardware performance counters to characterize the quality of the generated parallel code.
+
+\begin{table*}[tbp]
+\centering
+\caption{Summary of related works on LLM-based code generation for parallel programming.}
+\label{tab:rw}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{1.3cm}|p{3.0cm}|p{3.2cm}|p{3.0cm}|p{2.0cm}}
+\toprule
+\textbf{Work} & \textbf{LLMs} & \textbf{Languages} & \textbf{Benchmarks} & \textbf{PPI} \\
+\midrule
+\cite{Godoy2024llm} & GPT-3 & C++, Fortran, Python, Julia & HPC kernels (AXPY, GEMV, GEMM, etc.) & OpenMP, others \\
+\midrule
+\cite{Godoy2023codex} & OpenAI Codex & C++, Fortran, Python, Julia & HPC kernels & OpenMP, others \\
+\midrule
+\cite{valerolara2023comparing} & Llama-2, GPT-3 & C++, Fortran, Python, Julia & HPC kernels & OpenMP, others \\
+\midrule
+\cite{nichols2024parallel} & Multiple (GPT, Code Llama, etc.) & C++ & ParEval & OpenMP, MPI, CUDA, Kokkos \\
+\midrule
+This work & ChatGPT, Gemini, Claude, Meta AI, DeepSeek & C & PAMPAR & OpenMP \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{comment}
+\section{Theoretical Background}\label{sec:background}
+
+This section presents the concepts necessary to understand the context, methodology, and results of this work. 
+Section~\ref{sec:parallel} introduces shared-memory parallel programming and the OpenMP interface. 
+Section~\ref{sec:speedup} defines the performance metrics used, including speedup and Amdahl's Law. 
+Section~\ref{sec:llms} provides an overview of Large Language Models and their application to code generation. 
+Section~\ref{sec:pampar} describes the PAMPAR benchmark.
+
+%==============================
+\section{Shared-Memory Parallel Programming} \label{sec:parallel}
+
+Modern processors provide multiple cores that can execute instructions simultaneously. 
+In shared-memory systems, all cores access the same physical memory. That enables communication through shared variables without message passing. 
+Programs exploit this architecture by creating multiple \textit{threads}, each of which runs concurrently on a different core and operates on different portions of the data.
+
+Writing correct shared-memory parallel programs requires the programmer to address several challenges. 
+First, the programmer must identify regions of code that can execute concurrently without producing incorrect results—a task that requires understanding data dependencies within the program. 
+Second, concurrent accesses to shared variables must be coordinated to prevent \textit{race conditions}, in which the outcome depends on the non-deterministic scheduling sequence of threads. 
+Third, phases of computation that depend on the results of earlier phases must be separated by \textit{synchronization barriers}, which ensure that all threads complete the first phase before any thread begins the second. 
+Finally, the work must be distributed among the threads to avoid load imbalance, where some threads finish earlier and wait while others complete disproportionately large portions of the work.
+
+%==============================
+\section{OpenMP} \label{sec:openmp}
+
+OpenMP (Open Multi-Processing) is a portable API for shared-memory parallel programming in C, C++, and Fortran \cite{chapman2007openmp}. 
+It consists of compiler directives (\texttt{\#pragma omp}), library routines, and environment variables. 
+Because OpenMP extends the source language through pragmas, a sequential compiler that does not recognize pragmas ignores them, producing a valid sequential program. 
+This property allows a single source file to serve as both a sequential and a parallel implementation.
+
+The most common OpenMP construct is the parallel loop, in which iterations of a \texttt{for} loop are distributed across threads:
+
+\begin{verbatim}
+#pragma omp parallel for
+for (int i = 0; i < N; i++) {
+    a[i] = b[i] + c[i];
+}
+\end{verbatim}
+
+When a reduction is required—summing all elements of an array, for example—OpenMP provides the \texttt{reduction} clause, which maintains a private copy of the reduction variable for each thread and combines them automatically at the end of the parallel region:
+
+\begin{verbatim}
+double sum = 0.0;
+#pragma omp parallel for reduction(+:sum)
+for (int i = 0; i < N; i++) {
+    sum += a[i];
+}
+\end{verbatim}
+
+Data sharing between threads is controlled through clauses on the pragma directives. The \texttt{private} clause declares that each thread has its own copy of a variable; the \texttt{shared} clause (the default) means all threads access the same memory location. 
+One of the most common sources of bugs in OpenMP programs is incorrect sharing attribution.
+
+The \texttt{ordered} clause is used for loop iterations that must execute in the original sequential order within a parallel region. When applied to an inner loop body, it effectively serializes that portion of execution, eliminating the benefit of parallelism for the affected code:
+
+\begin{verbatim}
+#pragma omp parallel for ordered
+for (int i = 0; i < N; i++) {
+    compute(i);
+    #pragma omp ordered
+    { accumulate(i); }   /* executes sequentially */
+}
+\end{verbatim}
+
+The number of threads used by an OpenMP program can be set through the \texttt{OMP\_NUM\_THREADS} environment variable or through the \texttt{num\_threads} clause on the parallel pragma.
+
+%==============================
+\section{Performance Metrics} \label{sec:speedup}
+
+%==============================
+\subsection{Speedup} \label{subsec:speedup}
+
+The primary metric for evaluating the performance of a parallel program is \textbf{speedup}, defined as the ratio of the sequential execution time to the parallel execution time:
+
+\begin{equation}
+S = \frac{T_{\text{seq}}}{T_{\text{par}}}
+\label{eq:speedup}
+\end{equation}
+
+A speedup of $S = p$ on $p$ threads is called \textit{linear speedup}, representing ideal performance where all threads contribute equally and no overhead is incurred. In practice, parallelization introduces overhead from thread management, synchronization, and communication, so $S < p$ is typical. Values of $S < 1$ indicate a \textit{slowdown}: the parallel version runs slower than the sequential one.
+
+%==============================
+\subsection{Amdahl's Law} \label{subsec:amdahl}
+
+Amdahl's Law \cite{amdahl1967} provides a theoretical upper bound on the speedup achievable for a fixed workload by expressing the role of the serial fraction of the program:
+
+\begin{equation}
+S_{\max}(p) = \frac{1}{f + \dfrac{1 - f}{p}}
+\label{eq:amdahl}
+\end{equation}
+
+\noindent where $f$ is the fraction of total execution time spent in code that cannot be parallelized and $p$ is the number of parallel threads. As $p \to \infty$, the maximum achievable speedup approaches $1/f$, meaning that even a small serial bottleneck strongly limits the potential benefit of additional threads. This bound is relevant to the results reported in this work: programs in which the parallel region represents less than the total execution time will exhibit a ceiling on speedup regardless of the parallelization strategy employed.
+
+%==============================
+\section{Large Language Models} \label{sec:llms}
+
+Large Language Models (LLMs) are neural network models trained on vast corpora of text and source code using self-supervised objectives such as next-token prediction. Given a sequence of tokens (words, subwords, or characters), an LLM is trained to predict the next token in the sequence. Through this process, it learns statistical patterns in language and code across a wide range of domains and programming languages.
+
+Contemporary LLMs—including GPT-4 (ChatGPT), Gemini, Claude, Meta AI, and DeepSeek—contain hundreds of billions of parameters and are capable of performing complex reasoning and generation tasks from a natural language description alone. For code generation specifically, these models can produce syntactically valid programs, apply idioms specific to a target language, and follow constraints expressed in the prompt, such as a requirement to use a specific library or maintain a specific function signature.
+
+However, LLMs do not execute or reason about code in the same way as a compiler or a human programmer. Their outputs are distributions over tokens conditioned on the prompt, learned from statistical patterns in training data. 
+That has several practical implications: a model may generate code that is syntactically correct but semantically incorrect; it may produce a parallelization that avoids race conditions in the common case but is incorrect in edge cases; and it may adopt an approach that is correct but inefficient, for example, by adding synchronization where it is not needed, or by failing to exploit all available parallelism.
+
+The quality of LLM outputs for a given task depends on the model's training data, model architecture, inference-time configuration (such as temperature and extended thinking modes), and the design of the prompt.
+
+%==============================
+\section{PAMPAR Benchmark} \label{sec:pampar}
+
+PAMPAR is a benchmark suite of 11 pseudo-applications implemented in C, originally proposed by \cite{GARCIA:PAMPAR:2020} to evaluate the performance and energy consumption of different Parallel Programming Interfaces. 
+Each application in PAMPAR is provided as a validated sequential implementation together with a reference parallel version developed by the benchmark authors. 
+This dual-version structure makes PAMPAR particularly suitable for evaluating LLMs: the sequential version serves as the model input, the sequential output serves as the ground truth for correctness checking, and the parallel version provides a performance reference.
+
+Table~\ref{tab:pampar} lists all eleven PAMPAR applications together with their data structures, problem sizes, and algorithmic complexities. 
+The applications span a range of data access patterns and computational structures, from simple $O(n)$ reductions over unstructured data to $O(n^3)$ algorithms on matrices with complex data dependencies. 
+
+\begin{table}[ht]
+\centering
+\caption{PAMPAR benchmark applications (adapted from \cite{GARCIA:PAMPAR:2020}).}
+\label{tab:pampar}
+\resizebox{.85\textwidth}{!}{%
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{Data Structure} & \textbf{Problem Size} & \textbf{Acronym} & \textbf{Application} & \textbf{Complexity} \\ \midrule
+\multirow{3}{*}{Unstructured Data}
+  & $10^{9}$         & NI & Numerical Integration & \multirow{3}{*}{$O(n)$} \\ \cmidrule(lr){2-4}
+  & $4\times10^{9}$  & PI & PI Calculation        & \\ \cmidrule(lr){2-4}
+  & $15\times10^{9}$ & DP & Dot Product           & \\ \midrule
+\multirow{3}{*}{Vectors}
+  & $10^{5}$         & HA  & Harmonic Sums        & $O(n \times d)$ \\ \cmidrule(l){2-5}
+  & $25\times10^{4}$ & OE  & Odd-Even Sort        & \multirow{3}{*}{$O(n^{2})$} \\ \cmidrule(lr){2-4}
+  & 32768            & DFT & Discrete Fourier Transform  & \\ \cmidrule(r){1-4}
+\multirow{7}{*}{Matrices}
+  & 1920$\times$1080        & HS & Histograms Similarity & \\ \cmidrule(l){2-5}
+  & \multirow{6}{*}{2048$\times$2048} & GL & Game of Life         & \multirow{2}{*}{$O(m \times n^{2})$} \\
+  &                                   & TR & Turing Ring          & \\ \cmidrule(l){3-5}
+  &                                   & DJ & Dijkstra             & \multirow{4}{*}{$O(n^{3})$} \\
+  &                                   & JA & Jacobi Method        & \\
+  &                                   & MM & Matrix Multiplication & \\
+  &                                   & GS & Gram-Schmidt         & \\ \bottomrule
+\end{tabular}
+}
+\end{table}
+
+From these eleven applications, this work selects six programs for evaluation, as detailed in Section~\ref{sec:methodology}.
+
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methodology} \label{sec:methodology}
+
+This work investigates the capability of current Large Language Models (LLMs) to convert sequential C code into parallel code.
+To this end, we designed a controlled experiment in which a fixed set of sequential programs is submitted to a set of LLMs, and the resulting parallel implementations are evaluated for correctness, performance, and recurring limitations.
+This chapter describes the research questions, the programs used as input, the models evaluated, the prompting strategy, the metrics collected, and the execution environment.
+
+%==============================
+\subsection{Research Questions} \label{sec:rqs}
+
+The central question guiding this study is:
+%\begin{citacao}
+\textbf{What is the capability of current LLMs in converting sequential C code to parallel %C code
+using OpenMP?}
+%\end{citacao}
+To operationalize this question, we define the following secondary research questions (RQs):
+
+\begin{itemize}
+\item \textbf{RQ1:} Do the generated LLM parallel programs compile and produce correct results?
+\item \textbf{RQ2:} What is the speedup of the generated parallel program compared to the original sequential program?
+\item \textbf{RQ3:} What are the most common limitations and failures in the generated code—that is, what prevented the generated programs from being correct or efficient?
+\item \textbf{RQ4:} How do the different LLMs compare in terms of the correctness and efficiency of the generated code? %parallel code?
+\end{itemize}
+
+RQ1 establishes a baseline of functional correctness since a program that compiles but produces incorrect results provides no practical value.
+RQ2 addresses performance, which is the core notion of value in parallel computing.
+RQ3 provides a qualitative dimension, characterizing the typical failure modes observed.
+%Finally, 
+RQ4 synthesizes the results of RQ1 and RQ2 across the evaluated models to enable a comparative analysis.
+
+%==============================
+\subsection{Input Programs} \label{sec:programs}
+
+As input, we use the sequential programs from PAMPAR, a parallel benchmark composed of 11 pseudo-applications implemented in C, originally proposed by \cite{GARCIA:PAMPAR:2020} to evaluate the performance and energy consumption of different PPIs.
+PAMPAR provides validated sequential implementations together with reference parallel versions developed by the benchmark authors.
+Each program's sequential output serves as the ground truth for correctness checking, and the reference parallel version serves as the performance target.
+%
+From the 11 available applications, we selected six programs that span a range of data structures, algorithmic complexities, and parallelization challenges.
+Table~\ref{tab:programs} summarizes the selected programs.
+
+\begin{table}[tbp]
+\centering
+\caption{Selected input programs from the PAMPAR benchmark.}
+\label{tab:programs}
+\begin{tabular}{llll}
+\toprule
+\textbf{Acronym} - \textbf{Program} & \textbf{($N$)} & \textbf{Complexity} & \textbf{Difficulty} \\
+\midrule
+DP - Dot Product                & $10^{10}$  & $O(N)$   & Easy   \\
+NI - Numerical Integration      & $10^{9}$   & $O(N)$   & Easy   \\
+MM - Matrix Multiplication      & 2048       & $O(N^3)$ & Mid \\ %Medium
+OE - Odd-Even Sort              & $10^{5}$   & $O(N^2)$ & Hard   \\
+DFT - Discrete Fourier Transform & $10^{4}$  & $O(N^2)$ & Mid \\ %Medium
+TR - Turing Ring                & 1280       & $O(N^3)$ & Hard   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+DP and NI consist of independent scalar computations that map naturally to a parallel reduction, making them the most straightforward cases for parallelization.
+MM is highly parallelizable but involves more complex memory access patterns across three large matrices; the loop ordering choice significantly affects cache performance. 
+DFT computes a spectrum of $N$ frequency coefficients, each of which is an independent linear combination of the $N$ input samples, making the outer loop trivially parallel.
+OE implements the odd-even transposition sort, which alternates between synchronized phases; the parallel implementation must correctly insert barriers between phases.
+TR simulates a predator-prey cellular automaton on a 2D toroidal grid using a wavefront pattern: each diagonal of cells is independent of the previous diagonal, but diagonals must be processed in strict order.
+This wavefront dependency makes TR the most challenging case for parallelization.
+
+%Claudio: Isso pode ser desnecessário
+\begin{comment}
+One program from PAMPAR was primarily considered but ultimately excluded: Dijkstra (DJ), which implements the single-source shortest-path algorithm for a dense graph. 
+Profiling with the PAMPAR ELAPSEDTIME macro revealed that the sequential file I/O for reading the graph input dominates total execution time, accounting for roughly 99\% of the measured time. 
+Under this condition, Amdahl's Law predicts a maximum speedup of approximately 1.01$\times$ regardless of how well the computation itself is parallelized, making DJ unsuitable for evaluating the parallelization capability of LLMs.
+\end{comment}
+
+%==============================
+\subsection{Evaluated Models} \label{sec:models}
+
+We evaluate five LLMs. selected to represent both proprietary frontier models and models with open weights, all of which were accessible at no cost through their official web interfaces.
+Table~\ref{tab:models} lists the evaluated models, their configurations, and the date of access.
+We access all models through their official web interfaces in June 2026.
+
+\begin{table}[tbp]
+\centering
+\caption{Evaluated LLMs and configurations.}
+\label{tab:models}
+\begin{tabular}{ll}
+\toprule
+\textbf{Model} & \textbf{Version / Configuration} \\
+\midrule
+ChatGPT  & GPT-4o (default configuration)                      \\
+Gemini   & Gemini 3.1 Pro, Extended Thinking enabled           \\
+Claude   & Claude Sonnet 4.6, MAX effort                       \\
+Meta AI  & Meta AI with Thinking mode                          \\
+DeepSeek & DeepSeek (Instant mode, DeepThink + Search enabled) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+%==============================
+\subsection{Prompting Strategy} \label{sec:prompt}
+
+To ensure that differences in the generated code could be attributed to the models themselves rather than variations in the prompt, we created a single prompt template and submitted it  identically to all models.
+Each program was submitted in a new, independent conversation to prevent context from previous interactions from influencing the results.
+For each model and each program, a single generation attempt was taken as the primary output, reflecting the result the model produces without iterative correction.
+
+The prompt explicitly requests parallelization using OpenMP, which fixes the target technology and makes the outputs directly comparable across models: 
+\textit{I have a sequential C program that I want to parallelize using OpenMP. 
+Please convert it to a parallel version while keeping the same logic and producing the same output as the original. 
+Return only the complete parallel C code, ready to compile, without explanations.}
+The full sequential source code of the program was pasted immediately after this instruction in the same message.
+
+%==============================
+\subsection{Metrics and Evaluation Procedure} \label{sec:metrics}
+
+The following aspects were evaluated for each generated program: 
+\begin{itemize}
+\item \textbf{Compilation (RQ1):} The generated code was compiled with GCC and OpenMP enabled. Code that failed to compile was recorded as a failure with the error noted.
+\item \textbf{Correctness (RQ1):} The output of the parallel program was compared against the output of the original sequential program running on the same input. Matching outputs were considered correct.
+\item \textbf{Speedup (RQ2):} execution times were measured and speedup was computed as $S = T_{\text{seq}} / T_{\text{par}}$.
+\item \textbf{Hardware counters:} \texttt{perf stat} was used to collect Instructions Per Cycle (IPC) and cache miss rates to support a deeper analysis of performance differences.
+\item \textbf{Failure characterization (RQ3):} Each case of incorrect or low-performance output was analyzed and classified by cause.
+\item \textbf{Model comparison (RQ4):} The results of the previous metrics were tabulated across models to enable a comparative analysis.
+\end{itemize}
+
+To obtain stable execution-time measurements, we run each program 30 times and use the average.
+Execution times were measured using the ELAPSEDTIME macro provided by PAMPAR, which wraps only the computational region of interest with internal high-resolution timers, excluding program startup and I/O time.
+The parallel programs were executed using 11 threads, matching the number of physical cores available minus one core reserved for the operating system (\texttt{taskset -c 1-11}).
+All programs were compiled with the flags \texttt{-O2 -fopenmp -DELAPSEDTIME -lm}.
+
+%==============================
+\subsection{Execution Environment} \label{sec:environment}
+
+All experiments were carried out on a single machine to ensure consistent and comparable measurements.
+The hardware and software configuration is described below:
+
+%\begin{itemize}
+%\item 
+\textbf{CPU:} AMD Ryzen 5 5600X, 6 physical cores (12 logical threads with SMT), base clock 3.7 GHz
+%\item 
+
+\textbf{Memory:} 32 GB DDR4
+%\item 
+
+\textbf{Operating System:} Arch Linux (kernel 7.0.12-arch1-1)
+%\item 
+
+\textbf{Compiler:} GCC 16.1.1
+%\item 
+
+\textbf{Compilation flags:} \texttt{-O2 -fopenmp -DELAPSEDTIME} % -lm}
+%\item 
+
+\textbf{Thread count:} 11 threads (\texttt{taskset -c 1-11}; core 0 reserved for the OS)
+%\end{itemize}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimental Evaluation} \label{sec:resultado}
+
+This chapter presents the experimental results organized around the four research questions defined in Chapter~\ref{sec:methodology}. Section~\ref{sec:res_baseline} characterizes the sequential baselines. Section~\ref{sec:res_rq1} addresses RQ1 (correctness). Section~\ref{sec:res_rq2} addresses RQ2 (speedup). Section~\ref{sec:res_rq3} addresses RQ3 (failure characterization). Section~\ref{sec:res_rq4} addresses RQ4 (model comparison).
+
+%==============================
+\subsection{Sequential Baselines} \label{sec:res_baseline}
+
+Table~\ref{tab:baseline} reports the average execution time, standard deviation, Instructions Per Cycle (IPC), and cache miss rate for each sequential program over 30 runs. 
+The measurements confirm stable execution times (standard deviation is below 1\% of the mean in all cases) and reveal differences in computational characteristics across programs.
+
+\begin{table}[tbp]
+\centering
+\caption{Sequential baseline measurements (30 runs, \texttt{taskset} cores 1--11). IPC = instructions per cycle; Cache Miss = L1/LLC combined miss rate from \texttt{perf stat}.}
+\label{tab:baseline}
+\begin{tabular}{lrrrrr}
+\toprule
+%\textbf{Program} & \textbf{Complexity} & \textbf{Input ($N$} & \textbf{Avg Time (s)} & \textbf{Std Dev (s)} & \textbf{IPC} & \textbf{Cache Miss} \\
+\textbf{Program} & \textbf{Input} & \textbf{Time (s)} & \textbf{Std Dev (s)} & \textbf{IPC} & \textbf{Cache Miss} \\
+\midrule
+DP  & $10^{10}$ & 2.1686 & 0.0056 & 6.99 & 28.54\% \\
+NI  & $10^{9}$  & 1.9774 & 0.0047 & 1.97 & 29.78\% \\
+MM  & 2048      & 1.9369 & 0.0054 & 5.58 &  1.40\% \\
+OE  & $10^{5}$  & 3.2849 & 0.0071 & 3.63 &  1.51\% \\
+DFT & $10^{4}$  & 1.7494 & 0.0103 & 3.02 &  1.44\% \\
+TR  & 1280      & 1.8975 & 0.0155 & 5.20 & 39.37\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+DP achieves the highest IPC (6.99), indicating that the processor efficiently pipelines the dot product accumulation with few stalls. Despite this, the cache miss rate of 28.54\% reflects the memory-bound nature of iterating over $10^{10}$ elements: the working set far exceeds all cache levels, and sequential accesses are serviced primarily from DRAM. NI presents a similar memory profile (29.78\% miss rate) but lower IPC (1.97), consistent with its dependence on floating-point transcendental functions such as cosine, which introduce pipeline stalls.
+
+MM shows a very low cache miss rate (1.40\%) because the blocked matrix-multiplication access pattern keeps data in cache during the inner loop, enabling high IPC (5.58). 
+OE and DFT also show low cache miss rates, consistent with their vector-based working sets fitting within the cache. 
+TR exhibits the highest cache miss rate (39.37\%), reflecting frequent irregular accesses to the two-dimensional grid as the wavefront sweeps across diagonals.
+
+%==============================
+\subsection{RQ1: Correctness} \label{sec:res_rq1}
+
+\textbf{All 30 generated programs (5 models $\times$ 6 programs) compiled without errors and produced output identical to the sequential oracle.} 
+\begin{comment}
+Table~\ref{tab:correctness} records the correctness results.
+%
+\begin{table}[htbp]
+\centering
+\caption{Correctness: Output of each parallel version compared against the sequential oracle. \checkmark~= exact output match. All 30 programs compiled without errors.}
+\label{tab:correctness}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Program} & \textbf{ChatGPT} & \textbf{Gemini} & \textbf{Claude} & \textbf{Meta AI} & \textbf{DeepSeek} \\
+\midrule
+Dot Product           & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Numerical Integration & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Matrix Multiplication & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Odd-Even Sort         & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+DFT                   & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Turing Ring           & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{comment}
+%
+The 100\% compilation and correctness rate is a notable finding. 
+The programs evaluated extend from simple $O(N)$ reductions to $O(N^3)$ algorithms with complex data dependencies. 
+Yet, no model produced code that failed to compile or produced numerically incorrect output. 
+This result suggests that the five evaluated models have a sufficient understanding of C syntax, the OpenMP programming model, and the algorithmic structure of the benchmark programs to produce functionally correct parallel implementations in a single attempt.
+
+%==============================
+\subsection{RQ2: Speedup} \label{sec:res_rq2}
+
+Table~\ref{tab:speedup} reports the speedup achieved by each LLM-generated program at 11 threads, together with the speedup achieved by the PAMPAR reference parallel implementation for each program.
+
+\begin{table}[tbp]
+\centering
+\caption{Speedup $S = T_{\text{seq}} / T_{\text{par}}$ at 11 threads (30 runs each). 
+%$^\dagger$Meta AI NI: \texttt{\#pragma omp ordered} serializes the accumulation loop (see Section~\ref{sec:res_rq3}). 
+%$^\ddagger$DeepSeek TR: wavefront restructuring reduces iteration count from $O(N^3)$ to $O(N^2)$; the speedup reflects an algorithmic optimization and is excluded from the average (see Section~\ref{sec:res_rq3}).} 
+Meta AI NI: \texttt{\#pragma omp ordered} serializes the accumulation loop (see Section~\ref{sec:res_rq3}). 
+DeepSeek TR: wavefront restructuring reduces iteration count from $O(N^3)$ to $O(N^2)$; the speedup reflects an algorithmic optimization and is excluded from the average - Avrg (see Section~\ref{sec:res_rq3}).} 
+\label{tab:speedup}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Prog.} & \textbf{Ref.} & \textbf{ChatGPT} & \textbf{Gemini} & \textbf{Claude} & \textbf{Meta} & \textbf{DeepSeek} \\ %Meta AI
+\midrule
+DP  & 4.59 & 5.37 & 5.42 & 5.43 & 5.39 & 5.35 \\
+NI  & 5.35 & 5.26 & 5.27 & 5.26 & 0.48$^\dagger$ & 5.34 \\
+MM  & 4.71 & 2.76 & 4.64 & 4.82 & 4.76 & 4.63 \\
+OE  & 4.76 & 4.43 & 4.44 & 4.33 & 4.43 & 4.43 \\
+DFT & 6.15 & 6.10 & 6.08 & 6.02 & 6.02 & 5.99 \\
+\midrule
+%\textbf{Average (excl.\ TR)} &
+\textbf{Avrg} &
+\textbf{5.11} & \textbf{4.79} & \textbf{5.17} & \textbf{5.17} & \textbf{4.22} & \textbf{5.15} \\
+\midrule
+TR  & 5.01 & 2.15 & 4.97 & 4.92 & 2.22 & 34.75$^\ddagger$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Dot Product (DP).} All five LLMs exceeded the reference speedup of 4.59$\times$, achieving 5.35--5.43$\times$. The LLMs uniformly adopted a \texttt{reduction(+:)} clause over the dot product accumulation loop, which is the standard optimal OpenMP approach for this pattern. The reference implementation may use a different reduction strategy that is slightly less efficient under the measured conditions.
+
+\textbf{Numerical Integration (NI).} Four of the five models achieved speedups of 5.26--5.34$\times$, close to the reference of 5.35$\times$. Meta AI achieved only 0.48$\times$, a slowdown relative to the sequential baseline. This failure is analyzed in Section~\ref{sec:res_rq3}.
+
+\textbf{Matrix Multiplication (MM).} Gemini, Claude, and Meta AI achieved speedups of 4.63--4.82$\times$, matching or slightly exceeding the reference of 4.71$\times$. ChatGPT achieved only 2.76$\times$, a significant shortfall relative to both the reference and the other models. Analysis of the ChatGPT implementation revealed the same loop structure and data layout as the other models; however, no single cause for the performance gap was definitively identified. DeepSeek achieved 4.63$\times$.
+
+\textbf{Odd-Even Sort (OE).} All models achieved 4.33--4.44$\times$, slightly below the reference of 4.76$\times$. 
+The OE sort alternates between odd and even phases.
+Each requires a global synchronization barrier before the next phase begins. 
+The slight gap relative to the reference may reflect minor differences in barrier implementation or loop scheduling.
+
+\textbf{Discrete Fourier Transform (DFT).} All models achieved 5.99--6.10$\times$, which is very close to the reference of 6.15$\times$. DFT is an embarrassingly parallel algorithm where each output frequency coefficient is computed independently, making the outer loop trivially parallelizable with a reduction clause. The uniformly high speedup across all models confirms this.
+
+\textbf{Turing Ring (TR).} Results were highly variable: Gemini achieved 4.97$\times$ and Claude 4.92$\times$ (close to the reference 5.01$\times$), while ChatGPT achieved 2.15$\times$ and Meta AI 2.22$\times$. DeepSeek achieved 34.75$\times$. The wide range reflects three distinct parallelization strategies adopted across the five models, analyzed in Section~\ref{sec:res_rq3}.
+
+Figure~\ref{fig:speedup_program} illustrates the speedup of each model across the five programs DP, NI, MM, OE, and DFT, together with the reference implementation. The figure makes the two main performance failures immediately visible: the sharp drop of Meta AI on NI and of ChatGPT on MM, in contrast to the otherwise uniform behaviour close to the reference on the remaining programs. Turing Ring is shown separately in Figure~\ref{fig:turing_ring} due to its outlier behaviour.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=1.0\columnwidth]{figuras/speedup_by_program.pdf}
+\caption{Speedup per program at 11 threads for each LLM and the PAMPAR reference implementation. Turing Ring is shown separately in Figure~\ref{fig:turing_ring} due to its outlier behaviour.}
+\label{fig:speedup_program}
+\end{figure}
+
+%==============================
+\subsection{RQ3: Failure Characterization} \label{sec:res_rq3}
+%==============================
+
+Two distinct classes of limitations were observed in the generated programs: a correctness-preserving performance failure (Meta AI NI) and a parallelization overhead problem (ChatGPT and Meta AI TR). Additionally, one case of unexpected algorithmic optimization was observed (DeepSeek TR).
+
+%==============================
+\subsubsection{Meta AI Numerical Integration: \texttt{\#pragma omp ordered}} \label{subsec:metaai_ni}
+
+The Numerical Integration program computes the integral $\int_0^1 4/(1+x^2)\,dx$ using the rectangular rule with $N = 10^9$ sample points. Each iteration is independent: the value of the integrand at point $i$ depends only on $i$ itself and not on any previously computed value. The correct parallelization is a straightforward parallel reduction.
+
+Meta AI's implementation placed a \texttt{\#pragma omp ordered} directive inside the parallel loop governing the accumulation of the partial sums:
+
+\begin{verbatim}
+#pragma omp parallel for ordered
+for (long i = 0; i < N; i++) {
+    double x = (i + 0.5) / N;
+    double fx = 4.0 / (1.0 + x * x);
+    #pragma omp ordered
+    { total = total + fx; }
+}
+\end{verbatim}
+
+The \texttt{ordered} clause forces each iteration of the loop to update \texttt{total} in the original sequential order, one thread at a time. 
+That eliminates all parallelism in the accumulation, which is the dominant operation in this program. The code runs more slowly than the sequential version (speedup of 0.48$\times$) because it incurs thread management overhead on top of a full serialized computation. 
+The output is numerically correct because the ordered execution preserves the original sequential order of additions.
+
+The root cause of this failure is the model's decision to use \texttt{ordered} to avoid a race condition on \texttt{total}. While preventing the race condition, \texttt{ordered} is the wrong remedy: the correct solution is a \texttt{reduction(+:total)} clause, which maintains a private accumulator per thread and combines them at the end of the parallel region without any ordering constraint.
+
+%==============================
+\subsubsection{ChatGPT and Meta AI Turing Ring: Thread Spawn Overhead} \label{subsec:chatgpt_metaai_tr}
+
+The Turing Ring algorithm simulates a cellular automaton on a 1280$\times$1280 toroidal grid over multiple time steps. 
+Parallelization requires recognizing a wavefront dependency: at each time step, cells along the same anti-diagonal of the grid are independent of others, but processing must proceed anti-diagonal by anti-diagonal in strict order.
+
+The reference implementation and the implementations by Gemini and Claude correctly handle this structure by maintaining the outer anti-diagonal loop as serial and parallelizing only the inner loop over the cells within each anti-diagonal:
+
+\begin{verbatim}
+for (int d = 0; d < 2*N-1; d++) { 
+//serial: one diagonal at a time
+ #pragma omp parallel for schedule(dynamic)
+ for (int i = start; i <= end; i++) { 
+ //parallel: cells on diagonal d
+  joga(grid, i, d-i, N, aux);
+ }
+}
+\end{verbatim}
+
+ChatGPT and Meta AI adopted a structurally similar approach—parallel inner loop, like the serial anti-diagonal loop—but without processing the start and end bounds of each previous diagonal. 
+As a result, their implementations iterate over all $N \times N$ cells in the inner loop for each of the $2N-1$ diagonals, relying on a runtime conditional to skip cells that do not belong to the current diagonal. 
+That produces $O(N^3)$ inner-loop iterations in total (versus $O(N^2)$ for the bounded approach) and creates 2559 separate parallel regions (one per diagonal for $N=1280$), each incurring the cost of thread team creation and synchronization. 
+The combined overhead of the unnecessary iterations and repeated thread spawning reduced the speedup to approximately 2.15$\times$ (ChatGPT) and 2.22$\times$ (Meta AI).
+
+%==============================
+\subsubsection{DeepSeek Turing Ring: Algorithmic Optimization} \label{subsec:deepseek_tr}
+
+DeepSeek's implementation of the Turing Ring achieved a speedup of 34.75$\times$, which exceeds both the reference implementation (5.01$\times$) and the theoretical linear speedup for 11 threads. This result warrants careful interpretation.
+
+Inspection of the DeepSeek code reveals that the model did not simply add OpenMP directives to the original algorithm. Instead, it restructured the wavefront loop to compute explicit bounds for each anti-diagonal, thereby restricting the inner parallel loop to only the cells that belong to the current diagonal:
+
+\begin{verbatim}
+for (int d = 0; d < 2*N-1; d++) {
+  int start = (d < N) ? 0 : d - (N-1);
+  int end   = (d < N) ? d : N-1;
+  #pragma omp parallel for private(col) 
+                        schedule(dynamic)
+  for(int row = start; row<=end; row++){
+    col = d - row;
+    joga(grid, row, col, N, aux);
+  }
+}
+\end{verbatim}
+
+This restructuring reduces the total number of cell evaluations from $O(N^3)$ (as in the original sequential implementation, which checks all $N^2$ cells for each of the $2N-1$ diagonals) to $O(N^2)$ (iterating only over valid cells). For $N=1280$, this eliminates approximately $N-1 = 1279$ redundant evaluations per diagonal step, yielding a combined effect of algorithmic speedup and parallel execution that far exceeds what parallelization alone could provide.
+
+The output produced by DeepSeek's implementation is correct, as verified against the sequential oracle. The 34.75$\times$ speedup is therefore genuine in the sense that the program produces correct results faster, but it reflects a fundamental algorithmic improvement rather than parallelization performance alone. This case is excluded from the model average in Table~\ref{tab:speedup}.
+
+Figure~\ref{fig:turing_ring} summarizes the Turing Ring speedups on a logarithmic scale, which is necessary to accommodate the DeepSeek result alongside the others. The figure clearly shows the three tiers: Gemini and Claude near the reference, ChatGPT and Meta AI below it due to thread-spawn overhead, and DeepSeek far above as a result of its algorithmic optimization.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1.0\columnwidth]{figuras/turing_ring_speedup.pdf}
+\caption{Turing Ring speedup per model (logarithmic scale). DeepSeek's 34.75$\times$ reflects an algorithmic optimization rather than parallelism alone; ChatGPT and Meta AI fall below the reference due to thread-spawn overhead.}
+\label{fig:turing_ring}
+\end{figure}
+
+%==============================
+\subsection{RQ4: Model Comparison} \label{sec:res_rq4}
+
+All five models achieved 100\% compilation and correctness rates (RQ1). The primary differentiator is performance (RQ2).
+
+The averages reported here are computed for the five programs DP, NI, MM, OE, and DFT, excluding Turing Ring (TR) for \emph{all} models, to compare the models on a consistent basis.
+TR is excluded uniformly because it concentrates effects that are not representative of directive-level parallelization: an algorithmic restructuring by DeepSeek and a thread-spawn overhead pattern in ChatGPT and Meta AI. TR is analyzed on its own in Section~\ref{sec:res_rq3}.
+
+On this consistent basis, Gemini and Claude (both 5.17$\times$) most closely matched the PAMPAR reference implementation (5.11$\times$), with DeepSeek (5.15$\times$) essentially being equivalent. 
+ChatGPT (4.79$\times$) was lower, primarily driven by its suboptimal MM implementation (2.76$\times$). Meta AI performed the worst (4.22$\times$), driven by the severe NI failure (0.48$\times$). Including TR would not change this ordering for the four non-anomalous models but would distort the DeepSeek average upward due to its algorithmic optimization.
+
+On the simpler programs (DP, NI, DFT), all models performed comparably and close to the reference. Performance differences emerged only for programs with more complex parallelization requirements: MM (where ChatGPT's implementation underperformed), OE (where all models were marginally below the reference), and TR (which separated the models into three tiers based on parallelization strategy).
+
+%Claudio: alguém poderia questionar essa média de speedup: 
+Figure~\ref{fig:avg_speedup} presents the average speedup per model on this consistent basis, making the overall ranking immediately apparent: Gemini, Claude, and DeepSeek cluster at the reference level, while ChatGPT and Meta AI trail behind due to their program-specific failures.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=1.00\columnwidth]{figuras/average_speedup.pdf}
+\caption{Average speedup per model over DP, NI, MM, OE, and DFT (Turing Ring excluded uniformly). The dashed line marks the reference average.}
+\label{fig:avg_speedup}
+\end{figure}
+
+Table~\ref{tab:model_summary} summarizes the comparative results.
+
+\begin{table}[tbp]
+\centering
+\caption{Model summary: correctness rate, average speedup, and notable cases.}
+\label{tab:model_summary}
+\begin{tabular}{lccl}
+\toprule
+\textbf{Model} & \textbf{Correct} & \textbf{Speedup} & \textbf{Notable case} \\
+%\textbf{Model} & \textbf{Correct (of 30)} & \textbf{Avg Speedup} & \textbf{Notable case} \\
+\midrule
+%Reference (PAMPAR) & ---  & 5.11$\times$ & --- \\
+Reference & ---  & 5.11$\times$ & --- \\
+ChatGPT   & 6/6  & 4.79$\times$ & MM: 2.76$\times$; TR: overhead \\
+Gemini    & 6/6  & 5.17$\times$ & TR: close to reference \\
+Claude    & 6/6  & 5.17$\times$ & TR: close to reference \\
+Meta AI   & 6/6  & 4.22$\times$ & NI: 0.48$\times$ (ordered failure); \\
+& & & TR: overhead \\
+DeepSeek  & 6/6  & 5.15$\times$ & TR: 34.75$\times$ (algorithmic) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent All averages are computed over DP, NI, MM, OE, and DFT (TR excluded uniformly); see Section~\ref{sec:res_rq3} for the TR analysis.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion} \label{sec:conclusion}
+
+This work investigated the capability of five Large Language Models—ChatGPT, Gemini, Claude, Meta AI, and DeepSeek—to convert sequential C programs into parallel OpenMP implementations. 
+The evaluation was conducted on six programs from the PAMPAR benchmark, covering a range of parallelization scenarios from embarrassingly parallel reductions to wavefront algorithms with complex data dependencies. 
+Each model was given the same sequential source code and a single standardized prompt, and the generated programs were evaluated for compilation success, output correctness, execution speedup at 11 threads, and the quality of the parallelization strategy.
+
+\textbf{RQ1 (Correctness).} All 30 generated programs—five models across six programs—compiled without errors and produced output identical to the sequential oracle. 
+The 100\% correctness rate across a diverse set of programs, including programs with complex data dependencies such as the wavefront Turing Ring simulation, demonstrates that current frontier LLMs have sufficient understanding of C programming and the OpenMP model to produce functionally valid parallel code from a single zero-shot prompt.
+
+\textbf{RQ2 (Speedup).} Consistently (averaging over DP, NI, MM, OE, and DFT, with Turing Ring excluded uniformly for all models), three of the five models closely matched the PAMPAR reference (5.11$\times$): Gemini and Claude at 5.17$\times$ each, and DeepSeek at 5.15$\times$. ChatGPT was lower (4.79$\times$ average), driven primarily by a suboptimal matrix multiplication implementation (2.76$\times$). 
+Meta AI achieved the lowest average (4.22$\times$), driven by a serializing Numerical Integration implementation (0.48$\times$). 
+On individual programs, LLMs frequently matched or exceeded the reference: all five models surpassed the reference speedup for Dot Product (reference 4.59$\times$; LLMs 5.35--5.43$\times$), and all five achieved near-reference speedups for DFT (reference 6.15$\times$; LLMs 5.99--6.10$\times$).
+
+\textbf{RQ3 (Failure Characterization).} Two qualitatively different failure modes were identified. 
+First, Meta AI applied \texttt{\#pragma omp ordered} to the Numerical Integration accumulation loop, serializing a computation that requires no ordering constraints. 
+The correct solution — a \texttt{reduction(+:)} clause — was used by all other models; this failure shows that a model may select a technically valid synchronization primitive that is inappropriate for the actual data dependency structure. 
+Second, ChatGPT and Meta AI both handled the Turing Ring wavefront correctly, with dependency ordering.
+But their inner parallel loops iterate over the full $N \times N$ grid per diagonal step rather than bounding the iteration to valid cells on each diagonal. 
+That produces $O(N^3)$ iterations where $O(N^2)$ suffice and creates one parallel region per diagonal step, leading to substantial threading spawn overhead. 
+Notably, DeepSeek independently derived the $O(N^2)$ bounded iteration as part of its solution, achieving a 34.75$\times$ speedup that reflects an algorithmic improvement rather than parallelism alone.
+
+\textbf{RQ4 (Model Comparison).} The five models were indistinguishable in terms of correctness. In terms of performance, Gemini, Claude, and DeepSeek were the strongest performers, consistently close to the PAMPAR reference across the programs. 
+ChatGPT and Meta AI exhibited program-specific weaknesses that significantly reduced their overall averages: ChatGPT in the matrix multiplication application and Meta AI in numerical integration. 
+The observed differences are not attributable to a single consistent cause; rather, each model's shortfalls, arising from distinct decisions in specific programs, suggest that no single parallelization failure mode dominates current LLMs.
+
+\begin{comment}
+%==============================
+\section{Limitations} \label{sec:conclusion_limitations}
+
+Several limitations of this study should be acknowledged. 
+First, the evaluation uses a single prompt per program without iterative refinement. In practice, a programmer would likely refine an LLM's output through follow-up prompts, which could resolve some of the observed failures. 
+Second, the benchmark is limited to six programs from PAMPAR; different programs or larger scales might reveal different strengths and weaknesses. 
+Third, the models were accessed through web interfaces, which may use different underlying model versions than the APIs, and model versions change over time, limiting the reproducibility of exact results. 
+Fourth, the study uses a fixed 11-thread configuration on a single hardware platform; the relative performance of different parallelization strategies may differ on platforms with more threads or different memory hierarchies. 
+Finally, a single generation attempt per program per model was used; sampling multiple generations and selecting the best could yield higher performance.
+    
+\end{comment}
+
+%==============================
+%\section{Future Work} \label{sec:conclusion_future}
+
+Several directions extend the present work. 
+Iterative prompting experiments—in which the model is shown its own speedup output and asked to improve it—could assess whether LLMs can self-correct their parallelization strategies. 
+Extending the evaluation to additional PAMPAR programs (particularly JA, GL, and GS), other parallel programming interfaces (MPI, CUDA, OpenACC), and compiled-and-tested feedback loops would provide a more comprehensive picture. 
+A study of whether the failure modes observed here—incorrect synchronization of primitive selection and unbounded iteration—consistently appears across different program inputs and hardware configurations would support more general conclusions. 
+Finally, comparing the LLM-generated code against automatic parallelizing compilers on the same programs would place the LLM approach in the broader context of the automatic parallelization literature.
+
+\begin{comment}
+\section*{Acknowledgments}
+This work was supported by the Brazilian call CNPq: 10/2023 Universal (Project N\textsuperscript{o} 407827/2023-4); and by the Portuguese foundation FCT - Fundação para a Ciência e Tecnologia, I.P. by projects: CeDRI, UID/05757/2025 (DOI: 10.54499/UID/05757/2025) and UID/PRR/05757/2025 (DOI: 10.54499/UID/PRR/05757/2025); SusTEC, LA/P/0007/2020 (DOI: 10.54499/LA/ P/0007/2020).
+
+%This work was supported by the Portuguese foundation FCT - Fundação para a Ciência e Tecnologia, I.P. by projects: CeDRI, UID/05757/2025 (DOI: 10.54499/UID/05757/2025) and UID/PRR/05757/2025 (DOI: 10.54499/UID/PRR/05757/2025); SusTEC, LA/P/0007/2020 (DOI: 10.54499/LA/ P/0007/2020); and by the Brazilian call CNPq: 10/2023 Universal (Project N\textsuperscript{o} 407827/2023-4). 
+
+%This work was supported by 
+%Portuguese national funds through FCT/MCTES (PIDDAC): CeDRI, UIDB/05757/2020 (DOI: 10.54499/UIDB/\linebreak05757/2020) and UIDP/05757/2020 (DOI: 10.54499/UIDP/05757/2020); and SusTEC, LA/P/0007/2020 (DOI: 10.54499/LA/P/0007/2020); and by Brazilian CNPq: 10/2023 Universal (Project N\textsuperscript{o} 407827/2023-4). 
+
+% \thanks{This work was supported by portuguese national funds through FCT/MCTES (PIDDAC): CeDRI, UIDB/05757/2020 (DOI: 10.54499/UIDB/\linebreak05757/2020) and UIDP/05757/2020 (DOI: 10.54499/UIDP/05757/2020); and SusTEC, LA/P/0007/2020 (DOI: 10.54499/LA/P/0007/2020)}
+% }
+%\thanks{
+%This work was supported by FCT - Fundação para a Ciência e Tecnologia, I.P. by projects: CeDRI, UID/05757/2025 (DOI: 10.54499/UID/05757/2025) and UID/PRR/05757/2025 (DOI: 10.54499/UID/PRR/05757/2025); SusTEC, LA/P/0007/2020 (DOI: 10.54499/LA/ P/0007/2020).} 
+\end{comment}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliografia}
+
+\end{document} 

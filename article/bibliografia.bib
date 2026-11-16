@@ -1,0 +1,192 @@
+@article{GARCIA:PAMPAR:2020,
+  author = {Marques Garcia, Adriano and Schepke, Claudio and Girardi, Alessandro},
+  title = {{PAMPAR: A new parallel benchmark for performance and energy consumption evaluation}},
+  journal = {Concurrency and Computation: Practice and Experience},
+  volume = {32},
+  number = {20},
+  pages = {e5504},
+  doi = {10.1002/cpe.5504},
+  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/cpe.5504},
+  eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/cpe.5504},
+  note = {e5504 cpe.5504},
+  year = {2020}
+}
+
+% Workshop paper (ICPP-W 2023) — OpenAI Codex via GitHub Copilot for HPC
+% kernel GENERATION across many languages/programming models.
+% publisher = {Association for Computing Machinery},
+@inproceedings{Godoy2023codex,
+  author    = {Godoy, William F. and Valero-Lara, Pedro and Teranishi, Keita and Balaprakash, Prasanna and Vetter, Jeffrey S.},
+  title     = {Evaluation of {OpenAI} {Codex} for {HPC} Parallel Programming Models Kernel Generation},
+  booktitle = {Proceedings of the 52nd International Conference on Parallel Processing Workshops (ICPP-W '23)},
+  year      = {2023},
+  pages     = {136--144},
+  publisher = {ACM},
+  address   = {New York, NY, USA},
+  doi       = {10.1145/3605731.3605886}
+}
+
+% Journal paper (CC:PE 2024) — GPT-3 for code generation AND
+% AUTO-PARALLELIZATION OF SERIAL CODE in C++, Fortran, Python, Julia.
+@article{Godoy2024llm,
+  author  = {Godoy, William F. and Valero-Lara, Pedro and Teranishi, Keita and Balaprakash, Prasanna and Vetter, Jeffrey S.},
+  title   = {{Large language model evaluation for high-performance computing software development}},
+  journal = {Concurrency and Computation: Practice and Experience},
+  volume  = {36},
+  number  = {26},
+  pages   = {e8269},
+  year    = {2024},
+  doi     = {10.1002/cpe.8269}
+}
+
+% ---------------------------------------------------------------------
+% Canonical references for OpenMP and Amdahl's Law (Background chapter).
+% ---------------------------------------------------------------------
+
+@book{chapman2007openmp,
+  author    = {Chapman, Barbara and Jost, Gabriele and van der Pas, Ruud},
+  title     = {Using {OpenMP}: Portable Shared Memory Parallel Programming},
+  publisher = {MIT Press},
+  address   = {Cambridge, MA},
+  year      = {2007}
+}
+
+@inproceedings{amdahl1967,
+  author    = {Amdahl, Gene M.},
+  title     = {Validity of the single processor approach to achieving large scale computing capabilities},
+  booktitle = {Proceedings of the April 18-20, 1967, Spring Joint Computer Conference (AFIPS '67)},
+  pages     = {483--485},
+  year      = {1967},
+  publisher = {ACM},
+  address   = {New York, NY, USA},
+  doi       = {10.1145/1465482.1465560}
+}
+% ---------------------------------------------------------------------
+% Additional verified related works (Related Work chapter).
+% ---------------------------------------------------------------------
+
+% ParEval — the key contrasting work: LLMs are worse at parallel than serial code.
+@inproceedings{nichols2024parallel,
+  author    = {Nichols, Daniel and Davis, Joshua H. and Xie, Zhaojun and Rajaram, Arjun and Bhatele, Abhinav},
+  title     = {{Can Large Language Models Write Parallel Code?}},
+  booktitle = {Proceedings of the 33rd International Symposium on High-Performance Parallel and Distributed Computing (HPDC '24)},
+  year      = {2024},
+  pages     = {281--294},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  doi       = {10.1145/3625549.3658689}
+}
+
+% Valero-Lara — Llama-2 vs GPT-3 for HPC kernels.
+@misc{valerolara2023comparing,
+  author       = {Valero-Lara, Pedro and Huante, Alexis and Al Lail, Mustafa and Godoy, William F. and Teranishi, Keita and Balaprakash, Prasanna and Vetter, Jeffrey S.},
+  title        = {{Comparing Llama-2 and {GPT-3} {LLMs} for {HPC} Kernels Generation}},
+  year         = {2023},
+  eprint       = {2309.07103},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.DC},
+  doi          = {10.48550/arXiv.2309.07103}
+}
+
+% Chen et al. — overview of LLMs and HPC intersection.
+@inproceedings{chen2023lm4hpc,
+  author    = {Chen, Le and Lin, Pei-Hung and Vanderbruggen, Tristan and Liao, Chunhua and Emani, Murali and de Supinski, Bronis},
+  title     = {{{LM4HPC}: Towards Effective Language Model Application in High-Performance Computing}},
+  booktitle = {OpenMP: Advanced Task-Based, Device and Compiler Programming (IWOMP 2023)},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {14114},
+  year      = {2023},
+  pages     = {18--33},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-031-40744-4_2}
+}
+
+% Lei et al. — dataset for OpenMP Fortran-to-C++ translation; fine-tuned beats GPT-4.
+@misc{lei2023dataset,
+  author       = {Lei, Bin and Ding, Caiwen and Chen, Le and Lin, Pei-Hung and Liao, Chunhua},
+  title        = {{Creating a Dataset for High-Performance Computing Code Translation using {LLMs}: A Bridge between {OpenMP} {Fortran} and {C++}}},
+  year         = {2023},
+  eprint       = {2307.07686},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.DC},
+  doi          = {10.48550/arXiv.2307.07686}
+}
+
+% HumanEval benchmark (Codex paper).
+@misc{chen2021codex,
+  author       = {Chen, Mark and Tworek, Jerry and Jun, Heewoo and Yuan, Qiming and Pinto, Henrique Ponde de Oliveira and Kaplan, Jared and others},
+  title        = {{Evaluating Large Language Models Trained on Code}},
+  year         = {2021},
+  eprint       = {2107.03374},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.LG},
+  doi          = {10.48550/arXiv.2107.03374}
+}
+
+% MBPP benchmark.
+@misc{austin2021mbpp,
+  author       = {Austin, Jacob and Odena, Augustus and Nye, Maxwell and Bosma, Maarten and Michalewski, Henryk and Dohan, David and others},
+  title        = {{Program Synthesis with Large Language Models}},
+  year         = {2021},
+  eprint       = {2108.07732},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.PL},
+  doi          = {10.48550/arXiv.2108.07732}
+}
+
+% Pluto polyhedral parallelizer.
+@inproceedings{bondhugula2008pluto,
+  author    = {Bondhugula, Uday and Hartono, Albert and Ramanujam, J. and Sadayappan, P.},
+  title     = {{A Practical Automatic Polyhedral Parallelizer and Locality Optimizer}},
+  booktitle = {Proceedings of the 29th ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI '08)},
+  year      = {2008},
+  pages     = {101--113},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  doi       = {10.1145/1375581.1375595}
+}
+
+% Polly (LLVM polyhedral optimizer).
+@article{grosser2012polly,
+  author  = {Grosser, Tobias and Groesslinger, Armin and Lengauer, Christian},
+  title   = {{Polly --- Performing Polyhedral Optimizations on a Low-Level Intermediate Representation}},
+  journal = {Parallel Processing Letters},
+  volume  = {22},
+  number  = {4},
+  pages   = {1250010},
+  year    = {2012},
+  doi     = {10.1142/S0129626412500107}
+}
+% ---------------------------------------------------------------------
+% Prompt engineering references (Schedule / future work).
+% ---------------------------------------------------------------------
+
+% Few-shot / in-context learning (GPT-3 paper).
+@inproceedings{brown2020fewshot,
+  author    = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared and Dhariwal, Prafulla and others},
+  title     = {Language Models are Few-Shot Learners},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {33},
+  pages     = {1877--1901},
+  year      = {2020}
+}
+
+% Chain-of-Thought prompting.
+@inproceedings{wei2022cot,
+  author    = {Wei, Jason and Wang, Xuezhi and Schuurmans, Dale and Bosma, Maarten and Ichter, Brian and Xia, Fei and Chi, Ed H. and Le, Quoc V. and Zhou, Denny},
+  title     = {Chain-of-Thought Prompting Elicits Reasoning in Large Language Models},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {35},
+  pages     = {24824--24837},
+  year      = {2022}
+}
+
+% Zero-shot Chain-of-Thought ("Let's think step by step").
+@inproceedings{kojima2022zeroshot,
+  author    = {Kojima, Takeshi and Gu, Shixiang Shane and Reid, Machel and Matsuo, Yutaka and Iwasawa, Yusuke},
+  title     = {Large Language Models are Zero-Shot Reasoners},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {35},
+  pages     = {22199--22213},
+  year      = {2022}
+}

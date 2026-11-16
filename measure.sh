@@ -12,7 +12,7 @@
 #   ./measure.sh <source.c> <program_key> [num_threads] [threads_as_arg]
 #
 #   <source.c>       path to the C file to compile and measure
-#   <program_key>    one of: DP NI MM OE DJ DFT TR (determines input args)
+#   <program_key>    one of: DP NI MM OE DFT TR NUS CHO ADI CG MG FT (determines input args)
 #   [num_threads]    optional; sets OMP_NUM_THREADS for parallel versions
 #   [threads_as_arg] optional; set to "yes" if the program expects threads
 #                    as its first argument (PAMPAR reference convention: <threads> <N>)
@@ -47,6 +47,14 @@ INPUT_ARGS[OE]="100000"             # odd-even sort: vector size (~3.3s; O(n^2) 
 INPUT_ARGS[DFT]="10000"             # discrete fourier transform: N (~1.75s; O(n^2) trig ops)
 INPUT_ARGS[TR]="1280"               # predator-prey ring: NxN grid (~1.9s; O(n^3) in practice)
 # DJ excluded: fscanf text parsing dominates runtime, masking parallel speedup (Amdahl's Law)
+# PolyBench/C 4.2.1 (only the kernel is timed)
+INPUT_ARGS[NUS]="3000"              # Nussinov: sequence length (~2.7s; 3200 jumps to ~7.6s)
+INPUT_ARGS[CHO]="2700"              # Cholesky: NxN matrix (~2.2s kernel; between LARGE and EXTRALARGE)
+INPUT_ARGS[ADI]="150 1000"          # ADI: time steps, NxN grid (~2.0s; LARGE grid, fewer steps)
+# NPB 3.3.1 (Fortran, built by npb_build.sh; setup in progress): class fixed at compile time, no arguments
+INPUT_ARGS[CG]=""                   # conjugate gradient: class B (~21s)
+INPUT_ARGS[MG]=""                   # multigrid: class B (~2.5s)
+INPUT_ARGS[FT]=""                   # 3D FFT: class A (~2.1s)
 
 # ---- Arguments -------------------------------------------------------
 SRC="${1:-}"
@@ -55,14 +63,14 @@ THREADS="${3:-}"
 THREADS_AS_ARG="${4:-no}"
 
 if [[ -z "$SRC" || -z "$KEY" ]]; then
-  echo "Usage: $0 <source.c> <program_key DP|NI|MM|OE|DJ> [num_threads]"
+  echo "Usage: $0 <source.c> <program_key> [num_threads] [threads_as_arg]"
   exit 1
 fi
 if [[ ! -f "$SRC" ]]; then
   echo "ERROR: source file not found: $SRC"; exit 1
 fi
 if [[ -z "${INPUT_ARGS[$KEY]+x}" ]]; then
-  echo "ERROR: unknown program key '$KEY' (use DP NI MM OE DJ)"; exit 1
+  echo "ERROR: unknown program key '$KEY' (see INPUT_ARGS in $0)"; exit 1
 fi
 
 ARGS="${INPUT_ARGS[$KEY]}"

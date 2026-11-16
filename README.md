@@ -8,14 +8,10 @@ reference OpenMP implementations, and the measurement scripts used in the TCC.
 ```
 tcc_setup/
 ├── programs/              # Sequential benchmark sources used as prompts and baselines
-│   ├── DP/DP_sequential.c
-│   ├── DFT/DFT_sequential.c
-│   ├── DJ/DJ_sequential.c
-│   ├── MM/MM_sequential.c
-│   ├── NI/NI_sequential.c
-│   ├── OE/OE_sequential.c
-│   └── TR/TR_sequential.c
-├── reference/             # OpenMP reference implementations used as ground truth
+│   ├── DP, NI, MM, OE, DFT, TR, DJ    # PAMPAR
+│   ├── NUS, CHO, ADI                  # PolyBench/C 4.2.1 (+ LICENSE-PolyBench.txt)
+│   └── CG, MG, FT                     # NPB 3.3.1, Fortran: official copy in npb/ (setup in progress)
+├── reference/             # OpenMP reference implementations (PAMPAR and NPB; none for PolyBench)
 ├── LLM_programs/          # LLM-generated parallel versions, grouped by benchmark
 ├── baseline/              # Captured measurements for the sequential programs
 ├── reference_results/      # Captured measurements for the reference OpenMP versions
@@ -26,6 +22,28 @@ tcc_setup/
 ├── run_llm.sh             # Convenience wrapper for LLM runs
 └── run_sweep.sh           # Full experiment over 2,4,...,24 threads
 ```
+
+## Benchmarks
+
+| Key | Program | Source | Input | Reference |
+|-----|---------|--------|-------|-----------|
+| DP, NI, MM, OE, DFT, TR | see PAMPAR | PAMPAR | `measure.sh` | PAMPAR OpenMP |
+| NUS | Nussinov | PolyBench/C 4.2.1 | n = 3000 | none |
+| CHO | Cholesky | PolyBench/C 4.2.1 | n = 2700 | none |
+| ADI | Alternating Direction Implicit | PolyBench/C 4.2.1 | 150 steps, n = 1000 | none |
+| CG, MG, FT | Conjugate Gradient, Multigrid, 3D FFT | NPB 3.3.1 (Fortran, `npb/`) | setup in progress | NPB 3.3.1 OpenMP |
+
+The PolyBench programs were made single-file C programs, like PAMPAR's,
+so that each LLM receives one complete file:
+
+- **PolyBench**: the kernel and data initialization are unchanged; the size is
+  read from the command line and a checksum of the result is printed. Cholesky's
+  initialization (untimed) skips products that are zero, building the same matrix
+  much faster. All three were checked to give bit-identical results to the
+  original PolyBench code.
+- Only the kernel is timed, as in PolyBench
+  (PAMPAR times the whole program).
+- `check_correctness.sh` compares NPB programs by NPB's own verification verdict.
 
 ## How to use
 

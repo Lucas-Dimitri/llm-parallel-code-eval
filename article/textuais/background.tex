@@ -1,0 +1,151 @@
+%==============================
+\chapter{Theoretical Background}\label{cap:background}
+
+This chapter presents the concepts necessary to understand the context, methodology, and results of this work. 
+Section~\ref{sec:parallel} introduces shared-memory parallel programming and the OpenMP interface. 
+Section~\ref{sec:speedup} defines the performance metrics used, including speedup and Amdahl's Law. 
+Section~\ref{sec:llms} provides an overview of Large Language Models and their application to code generation. 
+Section~\ref{sec:pampar} describes the PAMPAR benchmark.
+
+%==============================
+\section{Shared-Memory Parallel Programming}
+\label{sec:parallel}
+
+Modern processors provide multiple cores that can execute instructions simultaneously. 
+In shared-memory systems, all cores access the same physical memory. That enables communication through shared variables without message passing. 
+Programs exploit this architecture by creating multiple \textit{threads}, each of which runs concurrently on a different core and operates on different portions of the data.
+
+Writing correct shared-memory parallel programs requires the programmer to address several challenges. 
+First, the programmer must identify regions of code that can execute concurrently without producing incorrect results—a task that requires understanding data dependencies within the program. 
+Second, concurrent accesses to shared variables must be coordinated to prevent \textit{race conditions}, in which the outcome depends on the non-deterministic scheduling sequence of threads. 
+Third, phases of computation that depend on the results of earlier phases must be separated by \textit{synchronization barriers}, which ensure that all threads complete the first phase before any thread begins the second. 
+Finally, the work must be distributed among the threads to avoid load imbalance, where some threads finish earlier and wait while others complete disproportionately large portions of the work.
+
+%==============================
+\section{OpenMP}
+\label{sec:openmp}
+
+OpenMP (Open Multi-Processing) is a portable API for shared-memory parallel programming in C, C++, and Fortran \citeonline{chapman2007openmp}. 
+It consists of compiler directives (\texttt{\#pragma omp}), library routines, and environment variables. 
+Because OpenMP extends the source language through pragmas, a sequential compiler that does not recognize pragmas ignores them, producing a valid sequential program. 
+This property allows a single source file to serve as both a sequential and a parallel implementation.
+
+The most common OpenMP construct is the parallel loop, in which iterations of a \texttt{for} loop are distributed across threads:
+
+\begin{verbatim}
+#pragma omp parallel for
+for (int i = 0; i < N; i++) {
+    a[i] = b[i] + c[i];
+}
+\end{verbatim}
+
+When a reduction is required—summing all elements of an array, for example—OpenMP provides the \texttt{reduction} clause, which maintains a private copy of the reduction variable for each thread and combines them automatically at the end of the parallel region:
+
+\begin{verbatim}
+double sum = 0.0;
+#pragma omp parallel for reduction(+:sum)
+for (int i = 0; i < N; i++) {
+    sum += a[i];
+}
+\end{verbatim}
+
+Data sharing between threads is controlled through clauses on the pragma directives. The \texttt{private} clause declares that each thread has its own copy of a variable; the \texttt{shared} clause (the default) means all threads access the same memory location. 
+One of the most common sources of bugs in OpenMP programs is incorrect sharing attribution.
+
+The \texttt{ordered} clause is used for loop iterations that must execute in the original sequential order within a parallel region. When applied to an inner loop body, it effectively serializes that portion of execution, eliminating the benefit of parallelism for the affected code:
+
+\begin{verbatim}
+#pragma omp parallel for ordered
+for (int i = 0; i < N; i++) {
+    compute(i);
+    #pragma omp ordered
+    { accumulate(i); }   /* executes sequentially */
+}
+\end{verbatim}
+
+The number of threads used by an OpenMP program can be set through the \texttt{OMP\_NUM\_THREADS} environment variable or through the \texttt{num\_threads} clause on the parallel pragma.
+
+%==============================
+\section{Performance Metrics}
+\label{sec:speedup}
+
+%==============================
+\subsection{Speedup}
+\label{subsec:speedup}
+
+The primary metric for evaluating the performance of a parallel program is \textbf{speedup}, defined as the ratio of the sequential execution time to the parallel execution time:
+
+\begin{equation}
+S = \frac{T_{\text{seq}}}{T_{\text{par}}}
+\label{eq:speedup}
+\end{equation}
+
+A speedup of $S = p$ on $p$ threads is called \textit{linear speedup}, representing ideal performance where all threads contribute equally and no overhead is incurred. In practice, parallelization introduces overhead from thread management, synchronization, and communication, so $S < p$ is typical. Values of $S < 1$ indicate a \textit{slowdown}: the parallel version runs slower than the sequential one.
+
+%==============================
+\subsection{Amdahl's Law}
+\label{subsec:amdahl}
+
+Amdahl's Law \citeonline{amdahl1967} provides a theoretical upper bound on the speedup achievable for a fixed workload by expressing the role of the serial fraction of the program:
+
+\begin{equation}
+S_{\max}(p) = \frac{1}{f + \dfrac{1 - f}{p}}
+\label{eq:amdahl}
+\end{equation}
+
+\noindent where $f$ is the fraction of total execution time spent in code that cannot be parallelized and $p$ is the number of parallel threads. As $p \to \infty$, the maximum achievable speedup approaches $1/f$, meaning that even a small serial bottleneck strongly limits the potential benefit of additional threads. This bound is relevant to the results reported in this work: programs in which the parallel region represents less than the total execution time will exhibit a ceiling on speedup regardless of the parallelization strategy employed.
+
+%==============================
+\section{Large Language Models}
+\label{sec:llms}
+
+Large Language Models (LLMs) are neural network models trained on vast corpora of text and source code using self-supervised objectives such as next-token prediction. Given a sequence of tokens (words, subwords, or characters), an LLM is trained to predict the next token in the sequence. Through this process, it learns statistical patterns in language and code across a wide range of domains and programming languages.
+
+Contemporary LLMs—including GPT-4 (ChatGPT), Gemini, Claude, Meta AI, and DeepSeek—contain hundreds of billions of parameters and are capable of performing complex reasoning and generation tasks from a natural language description alone. For code generation specifically, these models can produce syntactically valid programs, apply idioms specific to a target language, and follow constraints expressed in the prompt, such as a requirement to use a specific library or maintain a specific function signature.
+
+However, LLMs do not execute or reason about code in the same way as a compiler or a human programmer. Their outputs are distributions over tokens conditioned on the prompt, learned from statistical patterns in training data. 
+That has several practical implications: a model may generate code that is syntactically correct but semantically incorrect; it may produce a parallelization that avoids race conditions in the common case but is incorrect in edge cases; and it may adopt an approach that is correct but inefficient, for example, by adding synchronization where it is not needed, or by failing to exploit all available parallelism.
+
+The quality of LLM outputs for a given task depends on the model's training data, model architecture, inference-time configuration (such as temperature and extended thinking modes), and the design of the prompt.
+
+%==============================
+\section{PAMPAR Benchmark}
+\label{sec:pampar}
+
+PAMPAR is a benchmark suite of 11 pseudo-applications implemented in C, originally proposed by \citeonline{GARCIA:PAMPAR:2020} to evaluate the performance and energy consumption of different Parallel Programming Interfaces. 
+Each application in PAMPAR is provided as a validated sequential implementation together with a reference parallel version written by expert programmers. 
+This dual-version structure makes PAMPAR particularly suitable for evaluating LLMs: the sequential version serves as the model input, the sequential output serves as the ground truth for correctness checking, and the parallel version provides an expert-written performance reference.
+
+Table~\ref{tab:pampar} lists all eleven PAMPAR applications together with their data structures, problem sizes, and algorithmic complexities. 
+The applications span a range of data access patterns and computational structures, from simple $O(n)$ reductions over unstructured data to $O(n^3)$ algorithms on matrices with complex data dependencies. 
+
+\begin{table}[ht]
+\centering
+\caption{PAMPAR benchmark applications (adapted from \citeonline{GARCIA:PAMPAR:2020}).}
+\label{tab:pampar}
+\resizebox{.85\textwidth}{!}{%
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{Data Structure} & \textbf{Problem Size} & \textbf{Acronym} & \textbf{Application} & \textbf{Complexity} \\ \midrule
+\multirow{3}{*}{Unstructured Data}
+  & $10^{9}$         & NI & Numerical Integration & \multirow{3}{*}{$O(n)$} \\ \cmidrule(lr){2-4}
+  & $4\times10^{9}$  & PI & PI Calculation        & \\ \cmidrule(lr){2-4}
+  & $15\times10^{9}$ & DP & Dot Product           & \\ \midrule
+\multirow{3}{*}{Vectors}
+  & $10^{5}$         & HA  & Harmonic Sums        & $O(n \times d)$ \\ \cmidrule(l){2-5}
+  & $25\times10^{4}$ & OE  & Odd-Even Sort        & \multirow{3}{*}{$O(n^{2})$} \\ \cmidrule(lr){2-4}
+  & 32768            & DFT & Discrete Fourier Transform  & \\ \cmidrule(r){1-4}
+\multirow{7}{*}{Matrices}
+  & 1920$\times$1080        & HS & Histograms Similarity & \\ \cmidrule(l){2-5}
+  & \multirow{6}{*}{2048$\times$2048} & GL & Game of Life         & \multirow{2}{*}{$O(m \times n^{2})$} \\
+  &                                   & TR & Turing Ring          & \\ \cmidrule(l){3-5}
+  &                                   & DJ & Dijkstra             & \multirow{4}{*}{$O(n^{3})$} \\
+  &                                   & JA & Jacobi Method        & \\
+  &                                   & MM & Matrix Multiplication & \\
+  &                                   & GS & Gram-Schmidt         & \\ \bottomrule
+\end{tabular}
+}
+\fonte{Adapted from \citeonline{GARCIA:PAMPAR:2020}.}
+\end{table}
+
+From these eleven applications, this work selects six programs for evaluation, as detailed in Chapter~\ref{cha:methodology}.

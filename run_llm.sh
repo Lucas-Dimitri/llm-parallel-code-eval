@@ -9,12 +9,15 @@ OUT_DIR="$SCRIPT_DIR/llm_results"
 THREADS="${1:-11}"
 mkdir -p "$OUT_DIR"
 
-KEYS=(${KEYS:-DP NI MM OE DFT TR})   # override, e.g. KEYS="DFT" ./run_sweep.sh
+KEYS=(${KEYS:-DP NI MM OE DFT TR NUS CHO ADI CG MG FT})   # override, e.g. KEYS="DFT" ./run_sweep.sh
 MODELS=(chatgpt gemini claude metaAI deepseek)
 
 for KEY in "${KEYS[@]}"; do
   for MODEL in "${MODELS[@]}"; do
     SRC="$SCRIPT_DIR/LLM_programs/$KEY/${KEY}_${MODEL}.c"
+    if [[ ! -f "$SRC" ]]; then
+      echo ">> skipping $(basename "$SRC") (not found)"; continue
+    fi
     OUT="$OUT_DIR/${KEY}_${MODEL}_t${THREADS}.txt"
     echo "=============================="
     echo ">> $KEY / $MODEL (${THREADS} threads)"

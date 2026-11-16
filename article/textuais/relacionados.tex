@@ -1,0 +1,67 @@
+%==============================
+\chapter{Related Work}\label{chapter:trabalhos}
+%==============================
+
+This chapter reviews works on Large Language Models for code generation, with an emphasis on studies related to parallel and high-performance computing (HPC) code. 
+Table~\ref{tab:rw} at the end of this chapter summarizes the reviewed works in terms of the LLMs evaluated, the programming languages targeted, the benchmarks used, and the parallel programming interface (PPI) studied.
+
+%==============================
+\section{LLMs for Code Generation}
+\label{sec:rw_codegen}
+%==============================
+
+The application of LLMs to source code generation has expanded significantly since the introduction of large-scale code-trained models. These models are evaluated on a variety of tasks, including code completion, test generation, bug fixing, and translation between programming languages. Standard benchmarks such as HumanEval \citeonline{chen2021codex} and MBPP \citeonline{austin2021mbpp} measure the ability to generate short, self-contained functions from natural language descriptions, and leading models achieve high pass rates on these benchmarks.
+
+For scientific and engineering code, the evaluation landscape is less mature. Scientific programs typically involve domain-specific numerical algorithms, restricted memory access patterns, and correctness constraints that go beyond simple input--output checking. LLMs trained primarily on general-purpose programming tasks may not have sufficient representation of HPC patterns in their training data, which makes their applicability to scientific parallelization an open empirical question \citeonline{chen2023lm4hpc}.
+
+%==============================
+\section{LLMs for Parallel and HPC Code}
+\label{sec:rw_hpc}
+
+
+\citeonline{Godoy2024llm} evaluated the ability of GPT-based models to generate parallel code for scientific kernels in C++, Fortran, Python, and Julia, targeting programming models including OpenMP. The study examined both code generation from a natural language description and the auto-parallelization of sequential code. The results showed that the correctness of the generated code correlated with the maturity of the target programming model, with OpenMP and CUDA scoring highly, while less mature models lagged. A related study by the same group \citeonline{Godoy2023codex} evaluated OpenAI Codex, accessed through GitHub Copilot, for generating HPC numerical kernels across a similar range of languages and programming models. In a complementary comparison, \citeonline{valerolara2023comparing} contrasted Llama-2 and GPT-3 on the same family of HPC kernels, finding that the proprietary model produced more reliable parallel code than the open-weight model available at the time.
+
+A more comprehensive evaluation was carried out by \citeonline{nichols2024parallel}, who introduced ParEva\, a benchmark of parallel programming problems spanning multiple execution models, and used it to systematically compare several LLMs. A central finding of their work is that LLMs are substantially worse at generating parallel code than at generating the equivalent serial code, indicating that parallelism remains a distinct and harder capability for current models. This observation directly motivates the present work, which focuses specifically on the sequential-to-parallel conversion task rather than on generation from scratch.
+
+Beyond generation, LLMs have been applied to adjacent HPC tasks \cite{lei2023dataset}. constructed a dataset for translating OpenMP code between Fortran and C++ and showed that a fine-tuned model could outperform GPT-4 on this translation task. 
+\citeonline{chen2023lm4hpc} provide a broader overview of the opportunities and challenges at the intersection of LLMs and HPC, including dataset construction and tooling that extends beyond code generation. Together, these works demonstrate that the gap between syntactic correctness and performance efficiency is a recurring theme in LLM-generated HPC code, motivating the empirical evaluation carried out in the present work.
+
+%==============================
+\section{Automatic Parallelization}
+\label{sec:rw_auto}
+
+Automatic parallelization of sequential programs has been studied for decades through compiler-based approaches. Classical parallelizing compilers analyze data dependence graphs to identify loop iterations that can execute concurrently and automatically insert parallel constructs. Tools such as Pluto \citeonline{bondhugula2008pluto} and Polly \citeonline{grosser2012polly} exploit the polyhedral model to transform loop nests for both parallelism and data locality. Despite substantial research, fully automatic parallelization remains a difficult open problem: compilers rely on conservative dependence analysis and cannot exploit high-level semantic knowledge about the program.
+
+LLMs represent a fundamentally different approach to the same problem. Rather than analyzing program structure statically, a language model draws on patterns learned from examples of both sequential and parallel programs during training. 
+That means an LLM may correctly parallelize a program by recognizing it as an instance of a known pattern—such as a parallel reduction or a wavefront algorithm—without performing explicit data flow analysis. 
+At the same time, LLMs lack the formal guarantees that compiler-based methods provide, making empirical evaluation essential.
+
+%==============================
+\section{Summary}
+\label{sec:rw_summary}
+
+Table~\ref{tab:rw} summarizes the related works discussed in this chapter. The present work is distinguished by its focus on a fixed, controlled set of benchmark programs from the PAMPAR suite, the inclusion of five diverse LLMs accessed through their standard web interfaces, and the use of both speedup measurements and hardware performance counters to characterize the quality of the generated parallel code.
+
+\begin{table}[tbp]
+\centering
+\caption{Summary of related works on LLM-based code generation for parallel programming.}
+\label{tab:rw}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{2.6cm}|p{3.0cm}|p{3.0cm}|p{3.0cm}|p{2.0cm}}
+\toprule
+\textbf{Work} & \textbf{LLMs} & \textbf{Languages} & \textbf{Benchmarks} & \textbf{PPI} \\
+\midrule
+\citeonline{Godoy2024llm} & GPT-3 & C++, Fortran, Python, Julia & HPC kernels (AXPY, GEMV, GEMM, etc.) & OpenMP, others \\
+\midrule
+\citeonline{Godoy2023codex} & OpenAI Codex & C++, Fortran, Python, Julia & HPC kernels & OpenMP, others \\
+\midrule
+\citeonline{valerolara2023comparing} & Llama-2, GPT-3 & C++, Fortran, Python, Julia & HPC kernels & OpenMP, others \\
+\midrule
+\citeonline{nichols2024parallel} & Multiple (GPT, Code Llama, etc.) & C++ & ParEval & OpenMP, MPI, CUDA, Kokkos \\
+\midrule
+This work & ChatGPT, Gemini, Claude, Meta AI, DeepSeek & C & PAMPAR & OpenMP \\
+\bottomrule
+\end{tabular}
+}
+\fonte{The author.}
+\end{table}

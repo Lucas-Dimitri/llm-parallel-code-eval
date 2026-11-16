@@ -1,0 +1,13 @@
+\begin{resumo}[Abstract]
+This work evaluates the capability of five Large Language Models (LLMs) --- ChatGPT, Gemini, Claude, Meta AI, and DeepSeek --- to convert sequential C programs into parallel implementations using OpenMP. 
+The evaluation was conducted on six programs from the PAMPAR benchmark, ranging from reductions with independent iterations to algorithms with complex data dependencies. 
+Each model received the same standardized prompt and the sequential source code, in a single attempt, without iterative refinement. 
+The generated programs were assessed for compilation, output correctness, and the speedup achieved on a shared-memory machine, using PAMPAR's reference implementations as a performance target. 
+All generated programs compiled and produced output identical to the sequential version. 
+In terms of performance, the frontier models approached the expert-written reference implementation, while the remaining models showed efficiency losses concentrated in the programs with more complex parallelization patterns. 
+The results indicate that current LLMs are able to generate functionally correct parallel code for a wide variety of programs in a single attempt, but differ significantly in efficiency as parallelization complexity increases.
+
+\vspace{\onelineskip}
+\noindent
+\textbf{Keywords}: Large Language Models. Automatic Parallelization. OpenMP. High-Performance Computing.
+\end{resumo}

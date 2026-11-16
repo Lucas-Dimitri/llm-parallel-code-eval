@@ -1,0 +1,57 @@
+%==============================
+\chapter{Conclusion}\label{cap:conclusao}
+%==============================
+
+This work investigated the capability of five Large Language Models—ChatGPT, Gemini, Claude, Meta AI, and DeepSeek—to convert sequential C programs into parallel OpenMP implementations. 
+The evaluation was conducted on six programs from the PAMPAR benchmark, covering a range of parallelization scenarios from embarrassingly parallel reductions to wavefront algorithms with complex data dependencies. 
+Each model was given the same sequential source code and a single standardized prompt, and the generated programs were evaluated for compilation success, output correctness, execution speedup at 11 threads, and the quality of the parallelization strategy.
+
+%==============================
+\section{Summary of Findings}
+\label{sec:conclusion_summary}
+
+\textbf{RQ1 (Correctness).} All 30 generated programs—five models across six programs—compiled without errors and produced output identical to the sequential oracle. 
+The 100\% correctness rate across a diverse set of programs, including programs with complex data dependencies such as the wavefront Turing Ring simulation, demonstrates that current frontier LLMs have sufficient understanding of C programming and the OpenMP model to produce functionally valid parallel code from a single zero-shot prompt.
+
+\textbf{RQ2 (Speedup).} Consistently (averaging over DP, NI, MM, OE, and DFT, with Turing Ring excluded uniformly for all models), three of the five models closely matched the PAMPAR expert-written reference (5.11$\times$): Gemini and Claude at 5.17$\times$ each, and DeepSeek at 5.15$\times$. ChatGPT was lower (4.79$\times$ average), driven primarily by a suboptimal matrix multiplication implementation (2.76$\times$). 
+Meta AI achieved the lowest average (4.22$\times$), driven by a serializing Numerical Integration implementation (0.48$\times$). 
+On individual programs, LLMs frequently matched or exceeded the reference: all five models surpassed the reference speedup for Dot Product (reference 4.59$\times$; LLMs 5.35--5.43$\times$), and all five achieved near-reference speedups for DFT (reference 6.15$\times$; LLMs 5.99--6.10$\times$).
+
+\textbf{RQ3 (Failure Characterization).} Two qualitatively different failure modes were identified. 
+First, Meta AI applied \texttt{\#pragma omp ordered} to the Numerical Integration accumulation loop, serializing a computation that requires no ordering constraints. 
+The correct solution — a \texttt{reduction(+:)} clause — was used by all other models; this failure shows that a model may select a technically valid synchronization primitive that is inappropriate for the actual data dependency structure. 
+Second, ChatGPT and Meta AI both handled the Turing Ring wavefront correctly, with dependency ordering.
+But their inner parallel loops iterate over the full $N \times N$ grid per diagonal step rather than bounding the iteration to valid cells on each diagonal. 
+That produces $O(N^3)$ iterations where $O(N^2)$ suffice, and creates one parallel region per diagonal step, leading to substantial threading spawn overhead. 
+Notably, DeepSeek independently derived the $O(N^2)$ bounded iteration as part of its solution, achieving a 34.75$\times$ speedup that reflects an algorithmic improvement rather than parallelism alone.
+
+\textbf{RQ4 (Model Comparison).} The five models were indistinguishable in terms of correctness. In terms of performance, Gemini, Claude, and DeepSeek were the strongest performers, consistently close to the expert reference across the programs. 
+ChatGPT and Meta AI exhibited program-specific weaknesses that significantly reduced their overall averages: ChatGPT in the matrix multiplication application and Meta AI in numerical integration. 
+The observed differences are not attributable to a single consistent cause; rather, each model's shortfalls, arising from distinct decisions in specific programs, suggest that no single parallelization failure mode dominates current LLMs.
+
+%==============================
+\section{Limitations}
+\label{sec:conclusion_limitations}
+
+Several limitations of this study should be acknowledged. 
+First, the evaluation uses a single prompt per program without iterative refinement. In practice, a programmer would likely refine an LLM's output through follow-up prompts, which could resolve some of the observed failures. 
+Second, the benchmark is limited to six programs from PAMPAR; different programs or larger scales might reveal different strengths and weaknesses. 
+Third, the models were accessed through web interfaces, which may use different underlying model versions than the APIs, and model versions change over time, limiting the reproducibility of exact results. 
+Fourth, the study uses a fixed 11-thread configuration on a single hardware platform; the relative performance of different parallelization strategies may differ on platforms with more threads or different memory hierarchies. 
+Finally, a single generation attempt per program per model was used; sampling multiple generations and selecting the best could yield higher performance.
+
+%==============================
+\section{Future Work}
+\label{sec:conclusion_future}
+
+Several directions extend the present work. 
+Iterative prompting experiments—in which the model is shown its own speedup output and asked to improve it—could assess whether LLMs can self-correct their parallelization strategies. 
+Extending the evaluation to additional PAMPAR programs (particularly JA, GL, and GS), other parallel programming interfaces (MPI, CUDA, OpenACC), and compiled-and-tested feedback loops would provide a more comprehensive picture. 
+A study of whether the failure modes observed here—incorrect synchronization of primitive selection and unbounded iteration—consistently appears across different program inputs and hardware configurations would support more general conclusions. 
+Finally, comparing the LLM-generated code against automatic parallelizing compilers on the same programs would place the LLM approach in the broader context of the automatic parallelization literature.
+
+%==============================
+%\section{About AI use}
+%We use ...
+
+
