@@ -199,6 +199,10 @@ save(fig, "relative_to_reference")
 AVG_KEYS = ["DP", "NI", "MM", "OE", "DFT"]
 avg = {v: [st.mean(S[k][v][i] for k in AVG_KEYS) for i in range(len(THREADS))]
        for v in S["DP"]}
+(RESULTS / "average_speedups.csv").write_text(
+    "threads," + ",".join(avg) + "\n" +
+    "".join(f"{t}," + ",".join(f"{avg[v][i]:.3f}" for v in avg) + "\n"
+            for i, t in enumerate(THREADS)))
 fig, ax = plt.subplots(figsize=(3.5, 2.7))
 draw_lines(ax, avg)
 ax.set_ylim(0, 12)
@@ -229,6 +233,7 @@ save(fig, "turing_ring_vs_threads")
 
 print(f"Tukey's fences removed {runs_removed} of {runs_total} runs "
       f"({100 * runs_removed / runs_total:.1f}%)")
-print(f"Wrote {RESULTS}/speedups.csv")
+print(f"Wrote {RESULTS}/speedups.csv and {RESULTS}/average_speedups.csv "
+      f"(average over {', '.join(AVG_KEYS)})")
 print(f"Wrote speedup_vs_threads, relative_to_reference, average_speedup_vs_threads "
       f"and turing_ring_vs_threads (.pdf, .png) to {OUT}/")
